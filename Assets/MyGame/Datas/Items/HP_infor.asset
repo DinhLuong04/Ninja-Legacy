@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211bee3257e94064ba5bb8ff5e38d6ae, type: 3}
+  m_Name: HP_infor
+  m_EditorClassIdentifier: 
+  itemName: "B\xECnh HP"
+  description: "H\u1ED3i ph\u1EE5c 30 m\xE1u"
+  icon: {fileID: 21300000, guid: 4a1ad3603bdab6c42a3ae91646b272a4, type: 3}
+  usable: 1
+  healAmount: 30
+  manaAmount: 0

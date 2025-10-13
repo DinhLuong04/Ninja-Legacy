@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - 'Player '
+  - OneWay
+  - Ground
+  - PlayerAttack
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Ground
+  - One-way
+  - NPC
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Props
+    uniqueID: 3053874443
+    locked: 0
+  - name: BackGround
+    uniqueID: 572250619
+    locked: 0
+  - name: Ground
+    uniqueID: 353106037
+    locked: 0
+  - name: Enemies
+    uniqueID: 2870282293
+    locked: 0
+  - name: Waterfall
+    uniqueID: 4123534425
+    locked: 0
+  - name: NPC
+    uniqueID: 2459975823
+    locked: 0
+  - name: Player
+    uniqueID: 2502456177
+    locked: 0
+  - name: Water
+    uniqueID: 2987625757
+    locked: 0
+  - name: UI
+    uniqueID: 2826394681
+    locked: 0
+  - name: Item
+    uniqueID: 1426564083
+    locked: 0
