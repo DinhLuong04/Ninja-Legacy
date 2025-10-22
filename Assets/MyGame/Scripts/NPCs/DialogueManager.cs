@@ -140,4 +140,9 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         dialoguePanel.SetActive(false);
     }
+
+ 
+
+
+
 }

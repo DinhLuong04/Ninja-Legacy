@@ -6,10 +6,10 @@ public class NPC : MonoBehaviour
     public GameObject questAvailableIcon; // Dấu "!"
     public GameObject questTurnInIcon;    // Dấu "?"
 
-    private bool playerInRange;
+    protected bool  playerInRange;
     private Coroutine blinkCoroutine;
 
-    void Start()
+    protected virtual void Start()
     {
         UpdateQuestIcon();
 
@@ -23,7 +23,7 @@ public class NPC : MonoBehaviour
         QuestManager.OnQuestUpdated -= UpdateQuestIcon;
     }
 
-    void Update()
+     protected virtual void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
