@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // Thêm namespace cho TextMeshPro
-
+using System.Collections.Generic;
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance;
+
     [Header("Stats")]
     public int level = 1;
     public int exp = 0;
@@ -14,6 +16,9 @@ public class PlayerStats : MonoBehaviour
 
     public int maxMP = 50;
     public int currentMP;
+     [Header("Economy")]
+    public int gold = 500;
+    public List<TextMeshProUGUI> goldTexts = new List<TextMeshProUGUI>();
 
     [Header("UI")]
     public Image hpFill;    
@@ -34,7 +39,11 @@ public class PlayerStats : MonoBehaviour
 
         UpdateUI();
     }
-
+     private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
@@ -86,6 +95,22 @@ public class PlayerStats : MonoBehaviour
         currentMP = maxMP;
     }
 
+    public void AddGold(int amount)
+    {
+        gold += amount;
+        UpdateUI();
+    }
+     public bool SpendGold(int amount)
+    {
+        if (gold >= amount)
+        {
+            gold -= amount;
+            UpdateUI();
+            return true;
+        }
+        Debug.Log("Không đủ tiền!");
+        return false;
+    }
     private void UpdateUI()
     {
         
@@ -101,5 +126,10 @@ public class PlayerStats : MonoBehaviour
        
         float expPercentage = (float)exp / expToNextLevel * 100;
         percenLevelExps.text = expPercentage.ToString("F1") + "%";
+        foreach (var text in goldTexts)
+        {
+            if (text != null)
+                text.text = gold.ToString()+" Yên";
+        }
     }
 }

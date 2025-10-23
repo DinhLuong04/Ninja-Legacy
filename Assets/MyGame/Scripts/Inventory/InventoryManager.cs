@@ -4,6 +4,7 @@ using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance;
     [Header("Inventory Slots")]
     public Transform grid;                  // Grid chứa các slot
     private GameObject[] slots;             // Danh sách slot
@@ -21,6 +22,8 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
         if (grid == null)
         {
             Debug.LogError(" Grid chưa được gán trong InventoryManager!");

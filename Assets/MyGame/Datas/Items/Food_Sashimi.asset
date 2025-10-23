@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 211bee3257e94064ba5bb8ff5e38d6ae, type: 3}
-  m_Name: HP_infor
+  m_Name: Food_Sashimi
   m_EditorClassIdentifier: 
-  itemName: "B\xECnh HP"
-  description: "H\u1ED3i ph\u1EE5c 30 m\xE1u"
-  icon: {fileID: 21300000, guid: 4a1ad3603bdab6c42a3ae91646b272a4, type: 3}
-  itemType: 0
+  itemName: Sashimi
+  description: "H\u1ED3i 20 HP,MP/gi\xE2y trong 5 ph\xFAt"
+  icon: {fileID: 21300000, guid: 8af6963f2a52aec4ba3642f7969d95f7, type: 3}
+  itemType: 2
   price: 10
   usable: 1
-  healAmount: 70
+  healAmount: 0
   manaAmount: 0
-  duration: 0
-  healPerSecond: 0
+  duration: 300
+  healPerSecond: 20
   manaPerSecond: 0
   damageMultiplier: 1
   hpMultiplier: 1
