@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c76d8a37e14c544b9de3a87013dd17d, type: 3}
-  m_Name: NPC_ Village_Chief
+  m_Name: NPC_Ameji
   m_EditorClassIdentifier: 
-  npcName: "Tr\u01B0\u1EDFng l\xE0ng"
-  portrait: {fileID: 21300000, guid: 50014e17b7af34b4ea8fdfa1ef9727c6, type: 3}
+  npcName: "C\xF4 Ameji"
+  portrait: {fileID: 21300000, guid: a0eac76a4034c60418d7933207948f25, type: 3}
   availableQuests:
-  - {fileID: 11400000, guid: bc74f8080d5e9d848abf72f00c3dd8b8, type: 2}
+  - {fileID: 11400000, guid: dc9bf2956ee7eca43a2cd9e307b50142, type: 2}
   defaultDialogue: {fileID: 11400000, guid: 5a0d736e953521647b98cdefbef61446, type: 2}

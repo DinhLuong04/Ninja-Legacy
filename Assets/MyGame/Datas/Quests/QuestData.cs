@@ -13,6 +13,13 @@ public class QuestData : ScriptableObject
     public int requiredAmount = 1;
     public int rewardExp = 50;
     
-    public NPCData giverNPC;  // NPC cho quest
-    public NPCData receiverNPC; // NPC cần báo cáo
+    public NPCData giverNPC;  
+    public NPCData receiverNPC;
+    
+    public QuestData nextQuest;  
+    public NPCData nextQuestNPC;
+    public DialogueData dialogueNotStarted; // Lời mời nhận quest
+    public DialogueData dialogueInProgress; // Lời động viên khi làm
+    public DialogueData dialogueCompleted; // Lời chúc mừng/report
+    public DialogueData dialogueRewarded;  
 }

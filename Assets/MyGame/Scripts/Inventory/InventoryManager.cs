@@ -19,11 +19,18 @@ public class InventoryManager : MonoBehaviour
 
     [Header("References")]
     public PlayerStats playerStats;
+    public ItemUseHandler itemUseHandler;
 
-    void Start()
-    {
+     private
+    void Awake()
+{
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    if (itemUseHandler == null)
+        itemUseHandler = FindObjectOfType<ItemUseHandler>();
+}
+    void Start()
+    {
         if (grid == null)
         {
             Debug.LogError(" Grid chưa được gán trong InventoryManager!");
@@ -101,23 +108,18 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void UseItem(int index)
-    {
-        if (slotItems[index] == null) return;
+{
+    if (slotItems[index] == null) return;
 
-        ItemData item = slotItems[index];
-        Debug.Log($" Using {item.itemName}");
+    ItemData item = slotItems[index];
+    Debug.Log($"Using {item.itemName}");
 
-        if (item.usable)
-        {
-            if (item.healAmount > 0 && playerStats != null)
-                playerStats.Heal(item.healAmount);
-            if (item.manaAmount > 0 && playerStats != null)
-                playerStats.RestoreMana(item.manaAmount);
-        }
+    if (item.usable)
+        itemUseHandler.UseItem(item);
 
-        DecreaseItemCount(index);
-        itemInfoPanel.SetActive(false);
-    }
+    DecreaseItemCount(index);
+    itemInfoPanel.SetActive(false);
+}
 
     private void DecreaseItemCount(int index)
     {

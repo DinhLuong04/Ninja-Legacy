@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Thêm namespace cho TextMeshPro
+using TMPro;
 using System.Collections.Generic;
+
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
@@ -16,34 +17,45 @@ public class PlayerStats : MonoBehaviour
 
     public int maxMP = 50;
     public int currentMP;
-     [Header("Economy")]
+
+    [Header("Base Stats (for Buff)")]
+    public int baseMaxHP;
+    public int baseMaxMP;
+    public int baseDamage = 10;
+    public int currentDamage;
+
+    [Header("Economy")]
     public int gold = 500;
     public List<TextMeshProUGUI> goldTexts = new List<TextMeshProUGUI>();
 
     [Header("UI")]
-    public Image hpFill;    
-    public Image mpFill;    
-    public TextMeshProUGUI hpText;     
-    public TextMeshProUGUI mpText;     
-    public TextMeshProUGUI levelText;  
-    public TextMeshProUGUI percenLevelExps; 
+    public Image hpFill;
+    public Image mpFill;
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI mpText;
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI percenLevelExps;
 
-    void Start()
-    {
-        currentHP = maxHP;
-        currentMP = maxMP;
-
-        
-        hpFill.color = Color.red; 
-        mpFill.color = Color.blue; 
-
-        UpdateUI();
-    }
-     private void Awake()
+    void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
+
+    void Start()
+    {
+        baseMaxHP = maxHP;
+        baseMaxMP = maxMP;
+        currentHP = maxHP;
+        currentMP = maxMP;
+        currentDamage = baseDamage;
+
+        hpFill.color = Color.red;
+        mpFill.color = Color.blue;
+
+        UpdateUI();
+    }
+
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
@@ -89,10 +101,15 @@ public class PlayerStats : MonoBehaviour
     {
         level++;
         expToNextLevel += 50;
-        maxHP += 20;
-        maxMP += 10;
+        baseMaxHP += 20;
+        baseMaxMP += 10;
+
+        maxHP = baseMaxHP;
+        maxMP = baseMaxMP;
         currentHP = maxHP;
         currentMP = maxMP;
+
+        UpdateUI();
     }
 
     public void AddGold(int amount)
@@ -100,7 +117,8 @@ public class PlayerStats : MonoBehaviour
         gold += amount;
         UpdateUI();
     }
-     public bool SpendGold(int amount)
+
+    public bool SpendGold(int amount)
     {
         if (gold >= amount)
         {
@@ -111,25 +129,50 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Không đủ tiền!");
         return false;
     }
-    private void UpdateUI()
+
+    public void UpdateUI()
     {
-        
         hpFill.fillAmount = (float)currentHP / maxHP;
-       
         mpFill.fillAmount = (float)currentMP / maxMP;
-       
-        hpText.text = currentHP + " / " + maxHP;
-       
-        mpText.text = currentMP + " / " + maxMP;
-        
+        hpText.text = $"{currentHP} / {maxHP}";
+        mpText.text = $"{currentMP} / {maxMP}";
         levelText.text = "Lv " + level;
-       
+
         float expPercentage = (float)exp / expToNextLevel * 100;
         percenLevelExps.text = expPercentage.ToString("F1") + "%";
+
         foreach (var text in goldTexts)
         {
             if (text != null)
-                text.text = gold.ToString()+" Yên";
+                text.text = gold.ToString() + " Yên";
         }
+    }
+
+    //  Tính lại chỉ số dựa theo buff hiện có
+    public void RecalculateFromBuffs()
+    {
+        float hpMul = 1f;
+        float mpMul = 1f;
+        float dmgMul = 1f;
+
+        if (BuffPanelManager.Instance != null)
+        {
+            var buffs = BuffPanelManager.Instance.GetActiveBuffs();
+            foreach (var buff in buffs)
+            {
+                hpMul *= buff.hpMultiplier;
+                mpMul *= buff.mpMultiplier;
+                dmgMul *= buff.damageMultiplier;
+            }
+        }
+
+        maxHP = Mathf.RoundToInt(baseMaxHP * hpMul);
+        maxMP = Mathf.RoundToInt(baseMaxMP * mpMul);
+        currentDamage = Mathf.RoundToInt(baseDamage * dmgMul);
+
+        if (currentHP > maxHP) currentHP = maxHP;
+        if (currentMP > maxMP) currentMP = maxMP;
+
+        UpdateUI();
     }
 }

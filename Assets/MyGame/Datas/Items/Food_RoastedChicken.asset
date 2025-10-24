@@ -22,7 +22,7 @@ MonoBehaviour:
   manaAmount: 0
   duration: 300
   healPerSecond: 25
-  manaPerSecond: 0
+  manaPerSecond: 25
   damageMultiplier: 1
   hpMultiplier: 1
   mpMultiplier: 1

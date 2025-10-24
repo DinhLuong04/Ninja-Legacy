@@ -8,7 +8,8 @@ public class NPCData : ScriptableObject
 {
     public string npcName;
     public Sprite portrait;
-    public DialogueData dialogue;
-    public QuestData quest;
+    public List<QuestData> availableQuests;
+    [Header("Hội thoại khi không có nhiệm vụ")]
+    public DialogueData defaultDialogue;
 }
 

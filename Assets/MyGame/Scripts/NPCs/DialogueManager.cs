@@ -40,62 +40,88 @@ public class DialogueManager : MonoBehaviour
         npcNameText.text = npcData.npcName;
         npcPortrait.sprite = npcData.portrait;
 
-        //  Nếu có thể nộp quest
-        if (qm.CanReport(npcData.npcName))
+        QuestData currentQuest = qm.GetCurrentQuest();
+        QuestState state = qm.GetState();
+
+        acceptButton.gameObject.SetActive(false);
+        completeButton.gameObject.SetActive(false);
+
+        if (currentQuest != null && qm.CanReport(npcData.npcName) && currentQuest.receiverNPC == npcData)
         {
-            ShowSimpleDialogue("Tốt lắm! Cảm ơn vì đã hoàn thành nhiệm vụ.");
-            completeButton.gameObject.SetActive(true);
+            ShowDialogue(currentQuest.dialogueCompleted);
             return;
         }
 
-        //  Nếu đang làm nhiệm vụ
-        if (qm.GetState() == QuestState.InProgress && qm.GetCurrentQuest() == npcData.quest)
+        if (currentQuest != null && state == QuestState.InProgress && currentQuest.giverNPC == npcData)
         {
-            ShowSimpleDialogue("Hãy hoàn thành nhiệm vụ trước đã!");
+            ShowDialogue(currentQuest.dialogueInProgress);
             return;
         }
 
-        //  Nếu đã hoàn thành
-        if (qm.GetState() == QuestState.Rewarded)
+        if (currentQuest != null && state == QuestState.Rewarded && currentQuest.giverNPC == npcData)
         {
-            ShowSimpleDialogue("Cảm ơn, nhiệm vụ đã xong!");
+            ShowDialogue(currentQuest.dialogueRewarded);
             return;
         }
 
-        // Nếu là hội thoại bình thường
+        if (currentQuest != null && state == QuestState.NotStarted && currentQuest.giverNPC == npcData)
+        {
+            ShowDialogue(currentQuest.dialogueNotStarted);
+            return;
+        }
+
+        if (npcData.defaultDialogue != null)
+        {
+            ShowDialogue(npcData.defaultDialogue);
+        }
+        else
+        {
+            dialoguePanel.SetActive(false);
+        }
+    }
+
+    void ShowDialogue(DialogueData data)
+    {
+        if (data == null)
+        {
+            dialoguePanel.SetActive(false);
+            return;
+        }
+
         sentences = data.sentences;
         index = 0;
 
         dialoguePanel.SetActive(true);
         dialogueText.text = sentences[index];
-        nextButton.gameObject.SetActive(true);
-        acceptButton.gameObject.SetActive(false);
-        completeButton.gameObject.SetActive(false);
-    }
 
-    void ShowSimpleDialogue(string text)
-    {
-        dialoguePanel.SetActive(true);
-        dialogueText.text = text;
-        nextButton.gameObject.SetActive(false);
+        nextButton.gameObject.SetActive(sentences.Length > 1);
         acceptButton.gameObject.SetActive(false);
         completeButton.gameObject.SetActive(false);
-        StartCoroutine(CloseDialogueAfterDelay(3f));
     }
 
     public void NextSentence()
+{
+    index++;
+
+    if (index < sentences.Length)
     {
-        index++;
-        if (index < sentences.Length)
-        {
-            dialogueText.text = sentences[index];
-        }
-        else
-        {
+        dialogueText.text = sentences[index];
+
+        if (index == sentences.Length - 1)
             nextButton.gameObject.SetActive(false);
-            UpdateButtonVisibility();
+    }
+    else
+    {
+        nextButton.gameObject.SetActive(false);
+        UpdateButtonVisibility();
+
+        if (!acceptButton.gameObject.activeSelf && !completeButton.gameObject.activeSelf)
+        {
+            StartCoroutine(CloseDialogueAfterDelay(2f));
         }
     }
+}
+
 
     void UpdateButtonVisibility()
     {
@@ -103,11 +129,11 @@ public class DialogueManager : MonoBehaviour
         completeButton.gameObject.SetActive(false);
 
         var qm = QuestManager.Instance;
-        if (currentNpcData != null && currentNpcData.quest != null)
-        {
-            var quest = currentNpcData.quest;
+        QuestData currentQuest = qm.GetCurrentQuest();
 
-            if (qm.GetState() == QuestState.NotStarted && quest.giverNPC == currentNpcData)
+        if (currentQuest != null)
+        {
+            if (qm.GetState() == QuestState.NotStarted && currentQuest.giverNPC == currentNpcData)
             {
                 acceptButton.gameObject.SetActive(true);
             }
@@ -120,11 +146,16 @@ public class DialogueManager : MonoBehaviour
 
     public void OnAcceptQuest()
     {
-        if (currentNpcData != null && currentNpcData.quest != null)
+        if (currentNpcData != null)
         {
-            QuestManager.Instance.StartQuest(currentNpcData.quest);
-            dialoguePanel.SetActive(false);
-            currentNpc?.UpdateQuestIcon();
+            var qm = QuestManager.Instance;
+            QuestData currentQuest = qm.GetCurrentQuest();
+            if (currentQuest != null && currentQuest.giverNPC == currentNpcData)
+            {
+                qm.StartQuest(currentQuest);
+                dialoguePanel.SetActive(false);
+                currentNpc?.UpdateQuestIcon();
+            }
         }
     }
 
@@ -140,9 +171,4 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         dialoguePanel.SetActive(false);
     }
-
- 
-
-
-
 }

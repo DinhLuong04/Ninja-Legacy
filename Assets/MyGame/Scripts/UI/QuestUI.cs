@@ -21,9 +21,19 @@ public class QuestUI : MonoBehaviour
         questProgressText.text = progress;
         gameObject.SetActive(true);
     }
+    public void ShowHint(string message)
+    {
+        questNameText.text = "<color=yellow>Hướng dẫn</color>";
+        questProgressText.text = "";
+        questDescriptionText.text = message;
+    }
 
+  
     public void HideQuest()
     {
-        gameObject.SetActive(false);
+        questNameText.text = "";
+        questDescriptionText.text = "";
+        questProgressText.text = "";
+      
     }
 }
