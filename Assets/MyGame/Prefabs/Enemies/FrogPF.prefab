@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9f5fa2faf40244a81aad079c6b4340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 8652055139483637422}
+  enemy: {fileID: 347155331476441450}
   healthFill: {fileID: 8702889438906584842}
 --- !u!1 &5443954585296347785
 GameObject:
@@ -284,9 +284,8 @@ GameObject:
   - component: {fileID: 7782496319087496331}
   - component: {fileID: 2500503669957669003}
   - component: {fileID: 347155331476441450}
-  - component: {fileID: 8652055139483637422}
   m_Layer: 0
-  m_Name: Frog
+  m_Name: FrogPF
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -467,38 +466,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60005bb380cb65443867de88f861f77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 50
+  damage: 10
+  expReward: 20
+  enemyType: 0
+  animator: {fileID: 7782496319087496331}
+  enemyPrefab: {fileID: 0}
+  attackCooldown: 1.5
   moveSpeed: 2
   patrolRange: 3
   chaseRange: 2
   attackRange: 1
-  attackCooldown: 1.5
   minChaseDistance: 0.5
   maxHeightDifference: 0.5
   frontCheck: {fileID: 7677353551901653796}
   groundLayer:
     serializedVersion: 2
     m_Bits: 192
-  minYPosition: -10
   groundCheckDistance: 0.6
   wallCheckDistance: 0.3
---- !u!114 &8652055139483637422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5443954585296347785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c3738ad49de16408d1f9b57b5f211f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 50
-  damage: 10
-  expReward: 20
-  enemyType: 0
-  animator: {fileID: 7782496319087496331}
-  rb: {fileID: 4468991132226829232}
+  minYPosition: -10
 --- !u!1 &5766004375991258313
 GameObject:
   m_ObjectHideFlags: 0

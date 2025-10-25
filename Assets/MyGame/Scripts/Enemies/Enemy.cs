@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     public int maxHP = 50;
-    private int currentHP;
     public int damage = 10;
     public int expReward = 20;
 
@@ -12,76 +12,117 @@ public class Enemy : MonoBehaviour
     public EnemyType enemyType;
 
     [Header("References")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private Rigidbody2D rb;
-    private Transform player;
+    public Animator animator;
 
-    private bool isDead = false;
+    [Header("Respawn")]
+    public GameObject enemyPrefab;
+    private EnemyRespawner respawner;
+    [Header("AI Settings")]
+    public float attackRange = 1f;
+    protected int currentHP;
+    protected Transform player;
+    protected bool isDead = false;
 
-    void Start()
+    protected float lastAttackTime = 0f;
+    public float attackCooldown = 1.5f;
+
+    protected virtual void Start()
     {
         currentHP = maxHP;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         if (animator == null) animator = GetComponent<Animator>();
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
 
-        animator.SetBool("isHurt", false);
-        animator.SetBool("isDie", false);
+        respawner = FindObjectOfType<EnemyRespawner>();
+        if (respawner == null) Debug.LogError("Không tìm thấy EnemyRespawner trong scene!");
+        if( enemyPrefab == null) Debug.LogError("Enemy prefab chưa gán trong " + gameObject.name);
     }
 
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         if (isDead) return;
 
         currentHP -= amount;
-        animator.SetBool("isHurt", true);
+        if (animator != null) animator.SetBool("isHurt", true);
 
-        if (currentHP <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            
-            Invoke(nameof(ResetHurt), 0.3f);
-        }
+        if (currentHP <= 0) Die();
+        else Invoke(nameof(ResetHurt), 0.3f);
     }
 
     void ResetHurt()
     {
-        animator.SetBool("isHurt", false);
+        if (animator != null) animator.SetBool("isHurt", false);
     }
 
-    void Die()
+    protected virtual void Die()
     {
         isDead = true;
-        animator.SetBool("isDie", true);
+        if (animator != null) animator.SetBool("isDie", true);
 
-        rb.velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
 
-        // Thưởng EXP
         if (player != null)
+        {
+            PlayerStats ps = player.GetComponent<PlayerStats>();
+            if (ps != null) ps.GainExp(expReward);
+        }
+
+        QuestManager.Instance?.EnemyKilled(enemyType);
+
+        Vector3 spawnPosition = transform.position;
+        Debug.Log("Enemy prefab in Die: " + enemyPrefab?.name);
+        if (respawner != null) respawner.ScheduleRespawn(enemyPrefab, spawnPosition);
+
+        Destroy(GetComponentInChildren<EnemyHealthBar>()?.gameObject);
+        Destroy(gameObject, 1f);
+    }
+
+    public void DealDamage()
+    {
+        if (player == null)
+        {
+            Debug.LogError("Player is null in DealDamage!");
+            return;
+        }
+        float distance = Vector2.Distance(transform.position, player.position);
+        Debug.Log("DealDamage called at " + Time.time + ", Distance to player: " + distance);
+        if (distance <= attackRange)
         {
             PlayerStats ps = player.GetComponent<PlayerStats>();
             if (ps != null)
             {
-                ps.GainExp(expReward);
+                ps.TakeDamage(damage);
+                Debug.Log("Damage " + damage + " dealt to player");
             }
             else
             {
-                Debug.LogWarning("Không tìm thấy PlayerStats trên Player!");
+                Debug.LogError("PlayerStats not found on " + player.name);
             }
         }
-        QuestManager.Instance?.EnemyKilled(enemyType);
-        Destroy(gameObject, 1f); 
-        Destroy(GetComponentInChildren<EnemyHealthBar>()?.gameObject);
+        else
+        {
+            Debug.LogWarning("Distance (" + distance + ") exceeds " + attackRange + "f, no damage dealt");
+        }
+    }
 
-    }
-    public int GetCurrentHP()
+    protected void FlipSprite(float dir)
     {
-         return currentHP;
+        if (dir > 0.1f) transform.localScale = new Vector3(1, 1, 1);
+        else if (dir < -0.1f) transform.localScale = new Vector3(-1, 1, 1);
     }
-       
+
+    // Abstract method: AI riêng từng loại quái
+    protected abstract void HandleAI();
+
+    protected virtual void Update()
+    {
+        if (isDead || player == null) return;
+
+        HandleAI();
+    }
+
+    public float GetCurrentHP()
+    {
+        return currentHP;
+    }
 }

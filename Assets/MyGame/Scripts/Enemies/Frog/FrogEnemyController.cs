@@ -1,57 +1,55 @@
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyGround : Enemy
 {
     [Header("AI Settings")]
     public float moveSpeed = 2f;
     public float patrolRange = 3f;
-    public float chaseRange = 5f; // Khoảng cách chase theo trục X
-    public float attackRange = 1f;
-    public float attackCooldown = 1.5f;
-    public float minChaseDistance = 0.5f; // Khoảng cách tối thiểu khi chase
-    public float maxHeightDifference = 0.5f; // Ngưỡng chênh lệch chiều cao tối đa (trục Y)
+    public float chaseRange = 5f;
+    public float minChaseDistance = 0.5f;
+    public float maxHeightDifference = 0.5f;
 
     [Header("Ground Detection")]
-    [SerializeField] private BoxCollider2D frontCheck; 
-    [SerializeField] private LayerMask groundLayer;   // Layer chứa "ground", "one-way", và chướng ngại vật
-    [SerializeField] private float minYPosition = -10f; // Ngưỡng tối thiểu trục Y để tránh rơi vực
+    public BoxCollider2D frontCheck;
+    public LayerMask groundLayer;
+    public float groundCheckDistance = 0.6f;
+    public float wallCheckDistance = 0.3f;
+    public float minYPosition = -10f;
 
-    [Header("Obstacle Detection (Raycasts)")]
-    [SerializeField] private float groundCheckDistance = 0.6f; // Khoảng cách raycast xuống
-    [SerializeField] private float wallCheckDistance = 0.3f;   // Khoảng cách raycast ngang
-
+    private Rigidbody2D rb;
     private Vector2 startPos;
     private bool movingRight = true;
-    private Transform player;
-    private Animator animator;
-    private Rigidbody2D rb;
+    private bool isPecking = false;
+    private float peckTimer = 0f;
 
-    private float lastAttackTime = 0f;
-
-    void Start()
+    protected override void Start()
     {
-        startPos = transform.position;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        animator = GetComponent<Animator>();
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
-        animator.SetBool("IsJumping", false);
-        animator.SetBool("IsAttacking", false);
+        startPos = transform.position;
 
-        if (frontCheck == null)
+        if (animator != null)
         {
-            Debug.LogError("FrontCheck BoxCollider2D không được gán trong Inspector!");
+            animator.SetBool("IsJumping", false);
+            animator.SetBool("IsAttacking", false);
         }
     }
 
-    void Update()
+    protected override void HandleAI()
     {
-        if (player == null) return;
-
         float distToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
         float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
 
+        if (isDead || player == null) return;
+
+        if (isPecking)
+        {
+            HandlePeckCycle();
+            return;
+        }
+
         // Chase player
-        if (distToPlayerX <= chaseRange && IsPlayerInPatrolRange() && 
+        if (distToPlayerX <= chaseRange && IsPlayerInPatrolRange() &&
             distToPlayerX > attackRange && heightDifference <= maxHeightDifference)
         {
             ChasePlayer(distToPlayerX);
@@ -59,107 +57,99 @@ public class EnemyAI : MonoBehaviour
         // Attack player
         else if (distToPlayerX <= attackRange && heightDifference <= maxHeightDifference)
         {
-            rb.velocity = Vector2.zero;
-            animator.SetBool("IsJumping", false);
+            if (rb != null) rb.velocity = Vector2.zero;
+            if (animator != null) animator.SetBool("IsJumping", false);
 
             if (Time.time > lastAttackTime + attackCooldown)
             {
-                animator.SetBool("IsAttacking", true);
+                if (animator != null) animator.SetBool("IsAttacking", true);
                 lastAttackTime = Time.time;
+                StartPeckCycle();
             }
         }
         // Patrol
         else
         {
             Patrol();
+            if (animator != null)
+            {
+                animator.SetBool("IsJumping", true);
+                animator.SetBool("IsAttacking", false);
+            }
         }
 
-        // Reset animation nếu không tấn công
-        if (Time.time > lastAttackTime + attackCooldown && animator.GetBool("IsAttacking"))
-        {
+        // Reset IsAttacking sau cooldown
+        if (Time.time > lastAttackTime + attackCooldown && animator != null && animator.GetBool("IsAttacking"))
             animator.SetBool("IsAttacking", false);
-        }
 
-        // Giới hạn trục Y để tránh rơi quá sâu
-        if (transform.position.y < minYPosition)
-        {
-            transform.position = new Vector2(transform.position.x, minYPosition);
+        // Giới hạn Y
+        if (transform.position.y < minYPosition && rb != null)
             rb.velocity = new Vector2(rb.velocity.x, 0f);
-        }
-    }
-
-    // Check vực & tường
-    bool IsGroundAhead()
-    {
-        Vector2 origin = frontCheck.bounds.center;
-        Vector2 dir = movingRight ? Vector2.right : Vector2.left;
-
-        // Raycast xuống (check vực)
-        RaycastHit2D groundHit = Physics2D.Raycast(origin + dir * 0.2f, Vector2.down, groundCheckDistance, groundLayer);
-        if (!groundHit) return false; // không có ground phía trước
-
-        // Raycast ngang (check tường)
-        RaycastHit2D wallHit = Physics2D.Raycast(origin, dir, wallCheckDistance, groundLayer);
-        if (wallHit) return false; // có vật cản trước mặt
-
-        return true;
     }
 
     void Patrol()
     {
         if (!IsGroundAhead())
         {
-            movingRight = !movingRight; // quay đầu khi gặp vực hoặc vật cản
+            movingRight = !movingRight;
             return;
         }
 
-        animator.SetBool("IsJumping", true);
-        animator.SetBool("IsAttacking", false);
+        if (animator != null)
+        {
+            animator.SetBool("IsJumping", true);
+            animator.SetBool("IsAttacking", false);
+        }
 
         float currentX = transform.position.x;
-        if (movingRight)
+        if (rb != null)
         {
-            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-            if (currentX >= startPos.x + patrolRange) movingRight = false;
-        }
-        else
-        {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-            if (currentX <= startPos.x - patrolRange) movingRight = true;
+            rb.velocity = movingRight ? new Vector2(moveSpeed, rb.velocity.y) : new Vector2(-moveSpeed, rb.velocity.y);
         }
 
-        FlipSprite(rb.velocity.x);
+        if (currentX >= startPos.x + patrolRange) movingRight = false;
+        if (currentX <= startPos.x - patrolRange) movingRight = true;
+
+        FlipSprite(rb != null ? rb.velocity.x : 0);
     }
 
     void ChasePlayer(float distToPlayerX)
     {
-        // Nếu gặp vực hoặc tường thì bỏ chase
         if (!IsGroundAhead())
         {
             Patrol();
             return;
         }
 
-        animator.SetBool("IsJumping", true);
-        animator.SetBool("IsAttacking", false);
+        if (animator != null)
+        {
+            animator.SetBool("IsJumping", true);
+            animator.SetBool("IsAttacking", false);
+        }
 
         float dir = player.position.x - transform.position.x;
-
-        // Chỉ di chuyển nếu chưa đủ gần (minChaseDistance)
-        if (distToPlayerX > minChaseDistance)
+        if (rb != null)
         {
-            rb.velocity = new Vector2(Mathf.Sign(dir) * moveSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
+            rb.velocity = distToPlayerX > minChaseDistance ? new Vector2(Mathf.Sign(dir) * moveSpeed, rb.velocity.y) : Vector2.zero;
         }
 
-        // Giới hạn quái không ra khỏi vùng patrol
         float newX = Mathf.Clamp(transform.position.x, startPos.x - patrolRange, startPos.x + patrolRange);
         transform.position = new Vector2(newX, transform.position.y);
 
         FlipSprite(dir);
+    }
+
+    bool IsGroundAhead()
+    {
+        if (frontCheck == null) return true;
+
+        Vector2 origin = frontCheck.bounds.center;
+        Vector2 dir = movingRight ? Vector2.right : Vector2.left;
+
+        RaycastHit2D groundHit = Physics2D.Raycast(origin + dir * 0.2f, Vector2.down, groundCheckDistance, groundLayer);
+        RaycastHit2D wallHit = Physics2D.Raycast(origin, dir, wallCheckDistance, groundLayer);
+
+        return groundHit && !wallHit;
     }
 
     bool IsPlayerInPatrolRange()
@@ -168,46 +158,29 @@ public class EnemyAI : MonoBehaviour
         return playerDistX <= patrolRange;
     }
 
-    void FlipSprite(float dir)
+    void StartPeckCycle()
     {
-        if (dir > 0.1f && rb.velocity.x != 0) transform.localScale = new Vector3(1, 1, 1);
-        else if (dir < -0.1f && rb.velocity.x != 0) transform.localScale = new Vector3(-1, 1, 1);
+        isPecking = true;
+        peckTimer = 0f;
+        if (animator != null) animator.SetBool("IsAttacking", true);
     }
 
-    // Gọi từ animation event
-    public void DealDamage()
+    void HandlePeckCycle()
     {
-        if (player == null) return;
-        float distToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
-        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
-        if (distToPlayerX <= attackRange + 0.3f && heightDifference <= maxHeightDifference)
+        peckTimer += Time.deltaTime;
+
+        if (peckTimer < 0.35f)
         {
-            PlayerStats ps = player.GetComponent<PlayerStats>();
-            if (ps != null) ps.TakeDamage(10);
+            if (rb != null) rb.velocity = Vector2.zero;
+            if (animator != null) animator.SetBool("IsAttacking", true);
+            Debug.Log("Pecking at " + peckTimer + "s, Distance: " + Vector2.Distance(transform.position, player?.position ?? Vector2.zero));
         }
-    }
-
-    // Debug để vẽ vùng kiểm tra
-    void OnDrawGizmos()
-    {
-        if (frontCheck != null)
+        else
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(frontCheck.bounds.center, frontCheck.size);
-        }
-
-        if (frontCheck != null)
-        {
-            Vector2 origin = frontCheck.bounds.center;
-            Vector2 dir = movingRight ? Vector2.right : Vector2.left;
-
-            // Vẽ raycast xuống
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(origin + dir * 0.2f, origin + dir * 0.2f + Vector2.down * groundCheckDistance);
-
-            // Vẽ raycast ngang
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(origin, origin + (Vector2)dir * wallCheckDistance);
+            isPecking = false;
+            if (rb != null) rb.velocity = Vector2.zero;
+            if (animator != null) animator.SetBool("IsAttacking", false);
+            Debug.Log("Peck cycle ended at " + peckTimer + "s");
         }
     }
 }
