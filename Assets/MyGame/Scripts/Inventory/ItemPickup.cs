@@ -3,8 +3,13 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     public ItemData itemData; 
-    public InventoryManager inventory;
-
+    private InventoryManager inventory;
+    void Start()
+    {
+       
+        if (inventory == null)
+            inventory = FindObjectOfType<InventoryManager>();
+    }
    void OnTriggerEnter2D(Collider2D other)
 {
     if (other.CompareTag("Player"))
@@ -20,7 +25,7 @@ public class ItemPickup : MonoBehaviour
             return;
         }
         inventory.AddItem(itemData);
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
 }

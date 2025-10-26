@@ -34,6 +34,7 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
         isInputLocked = true;
         playerAnimator.SetBool("isAttacking", true);
+        StartCoroutine(LockInputForAnimation(0.5f));
       
     }
 
@@ -42,6 +43,7 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
         isInputLocked = true;
         playerAnimator.SetBool("isThrowing", true);
+        StartCoroutine(LockInputForAnimation(0.5f));
      
     }
 
@@ -104,4 +106,10 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = false;
         isInputLocked = false;
     }
+    public void EndAttack()
+{
+    isAttacking = false;
+    isInputLocked = false;
+    playerAnimator.SetBool("isAttacking", false);
+}
 }
