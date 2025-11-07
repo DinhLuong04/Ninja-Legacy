@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - PlayerAttack
   - Enemy
+  - GoldText
   layers:
   - Default
   - TransparentFX
@@ -46,20 +47,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Props
-    uniqueID: 3053874443
-    locked: 0
   - name: BackGround
     uniqueID: 572250619
+    locked: 0
+  - name: Props
+    uniqueID: 3053874443
     locked: 0
   - name: Ground
     uniqueID: 353106037
     locked: 0
-  - name: Enemies
-    uniqueID: 2870282293
-    locked: 0
   - name: Waterfall
     uniqueID: 4123534425
+    locked: 0
+  - name: Enemies
+    uniqueID: 2870282293
     locked: 0
   - name: NPC
     uniqueID: 2459975823

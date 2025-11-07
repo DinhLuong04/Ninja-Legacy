@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6875275296274106178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6219467225662317475}
+  - component: {fileID: 5832026837780686866}
+  - component: {fileID: 8129064764221117511}
+  - component: {fileID: 8603011228586199335}
+  - component: {fileID: 5177011147935591909}
+  - component: {fileID: 1263850252297314556}
+  - component: {fileID: 4406128192067025786}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6219467225662317475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 72.20193, y: -0.9662952, z: -0.19752216}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5832026837780686866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b327e64dc3ffd5c4eaf0ff7b14a9392a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8129064764221117511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2408bd5f664304393cf87ed0cd4481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstQuest: {fileID: 11400000, guid: bc74f8080d5e9d848abf72f00c3dd8b8, type: 2}
+  activeQuests: []
+  completedQuestIDs: []
+--- !u!114 &8603011228586199335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd5b8ef42d08fe45818623ebede5699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5177011147935591909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13312e3bcd8bf98409829af227ab75a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+--- !u!114 &1263850252297314556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77842799100d03144b86e3d3b87a3e54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  slotCount: 20
+  itemInfoPanel: {fileID: 0}
+  itemNameText: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
+  useButton: {fileID: 0}
+  playerStats: {fileID: 4406128192067025786}
+  itemUseHandler: {fileID: 0}
+--- !u!114 &4406128192067025786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875275296274106178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110951d84ebdba9419a3745951180942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  exp: 0
+  expToNextLevel: 100
+  maxHP: 300
+  currentHP: 0
+  maxMP: 500
+  currentMP: 0
+  baseMaxHP: 0
+  baseMaxMP: 0
+  baseDamage: 10
+  currentDamage: 0
+  gold: 500
+  goldTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  hpFill: {fileID: 0}
+  mpFill: {fileID: 0}
+  hpText: {fileID: 0}
+  mpText: {fileID: 0}
+  levelText: {fileID: 0}
+  percenLevelExps: {fileID: 0}
+  anim: {fileID: 0}
