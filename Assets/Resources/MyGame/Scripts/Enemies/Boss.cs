@@ -38,39 +38,59 @@ public abstract class Boss : Enemy
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
-    protected override void HandleAI()
+   protected override void HandleAI()
+{
+    if (isDead || player == null) return;
+
+    // Nếu đang ở Casting mà animation không còn play → reset về Chase
+    if (currentState == BossState.Casting && !IsPlayingAnimation("CastSkill"))
     {
-        if (isDead || player == null || currentState == BossState.Casting) return;
-        if (!CanDetectPlayer())
-        {
-            Patrol();
-            return;
-        }
-        UpdateGrounded();
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
-
-        // Xác định trạng thái
-        if (distToPlayer <= attackRange)
-            currentState = BossState.Attack;
-        else if (distToPlayer <= maxChaseRange)
-            currentState = BossState.Chase;
-        else
-            currentState = BossState.Patrol;
-
-        // Reset animation
-        if (currentState != BossState.Attack)
-            animator?.SetBool("IsAttacking", false);
-
-        // Thực thi hành vi
-        switch (currentState)
-        {
-            case BossState.Patrol: Patrol(); break;
-            case BossState.Chase: ChasePlayer(); break;
-            case BossState.Attack: AttackPlayer(); break;
-        }
-
-        TryStartCasting();
+        Debug.Log("[Boss] Cast bị hủy hoặc gián đoạn → reset về Chase");
+        currentState = BossState.Chase;
     }
+
+    // Nếu player chết → về patrol
+    if (PlayerStats.Instance != null && PlayerStats.Instance.isDead)
+    {
+        currentState = BossState.Patrol;
+        Patrol();
+        animator?.SetBool("IsAttacking", false);
+        return;
+    }
+
+    //  Chỉ return khi thật sự còn đang cast (animation cast đang chạy)
+    if (currentState == BossState.Casting)
+        return;
+
+    if (!CanDetectPlayer())
+    {
+        Patrol();
+        return;
+    }
+
+    UpdateGrounded();
+    float distToPlayer = Vector2.Distance(transform.position, player.position);
+
+    if (distToPlayer <= attackRange)
+        currentState = BossState.Attack;
+    else if (distToPlayer <= maxChaseRange)
+        currentState = BossState.Chase;
+    else
+        currentState = BossState.Patrol;
+
+    if (currentState != BossState.Attack)
+        animator?.SetBool("IsAttacking", false);
+
+    switch (currentState)
+    {
+        case BossState.Patrol: Patrol(); break;
+        case BossState.Chase: ChasePlayer(); break;
+        case BossState.Attack: AttackPlayer(); break;
+    }
+
+    TryStartCasting();
+}
+
 
     protected virtual void UpdateGrounded()
     {
@@ -89,6 +109,7 @@ public abstract class Boss : Enemy
 
     protected virtual void AttackPlayer()
     {
+        
         rb.velocity = new Vector2(0, rb.velocity.y);
         animator?.SetBool("IsAttacking", true);
 
@@ -155,4 +176,10 @@ public abstract class Boss : Enemy
     {
         yield return null; // Override ở con
     }
+    private bool IsPlayingAnimation(string animName)
+{
+    if (animator == null) return false;
+    var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+    return stateInfo.IsName(animName);
+}
 }

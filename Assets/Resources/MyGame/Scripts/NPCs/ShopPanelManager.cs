@@ -63,11 +63,15 @@ public class ShopPanelManager : MonoBehaviour
         {
             player.SpendGold(price);
             inventory.AddItem(selectedSlot.itemData);
-            Debug.Log($"Mua thành công {selectedSlot.itemData.itemName}");
+            NotificationManager.Instance.Show($"Đã mua {selectedSlot.itemData.itemName}!");
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.NotifyItemBought(selectedSlot.itemData.itemName);
+            }
         }
         else
         {
-            Debug.Log("Không đủ tiền để mua!");
+            NotificationManager.Instance.Show("Không đủ tiền để mua!");
         }
     }
 

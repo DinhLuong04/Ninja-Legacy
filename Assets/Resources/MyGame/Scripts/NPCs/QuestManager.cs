@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum QuestState { NotStarted, InProgress, Completed, Rewarded }
 
@@ -13,13 +14,14 @@ public class QuestManager : MonoBehaviour
     private QuestState state = QuestState.NotStarted;
     private bool allQuestsCompleted = false;
     public bool AllQuestsCompleted => allQuestsCompleted;
-
+    private bool hasInitializedRealGame = false; 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; 
         }
         else
         {
@@ -29,23 +31,54 @@ public class QuestManager : MonoBehaviour
 
     void Start()
     {
-        
+        // Nếu đang ở tutorial thì không khởi tạo quest đầu
+        if (TutorialManager.Instance != null) return;
+
+        // Nếu tất cả quest đã hoàn thành thì không cần làm gì
         if (allQuestsCompleted)
         {
             OnQuestUpdated?.Invoke();
             return;
         }
 
-        // Khởi tạo quest đầu nếu có
+        // Chỉ khởi tạo quest đầu nếu chưa có
         if (currentQuest == null && startingQuest != null)
         {
             currentQuest = startingQuest;
             state = QuestState.NotStarted;
             OnQuestUpdated?.Invoke();
-            if (QuestUI.Instance != null)
-                QuestUI.Instance.ShowHint("Hãy đến gặp Trưởng Làng để nhận nhiệm vụ đầu tiên!");
+            if (QuestUI.Instance != null && currentQuest.giverNPC != null)
+                QuestUI.Instance.ShowHint($"Hãy đến gặp {currentQuest.giverNPC.npcName} để nhận nhiệm vụ đầu tiên!");
         }
     }
+   
+     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Chỉ khởi tạo quest đầu khi vào map thật và chưa init
+        if (TutorialManager.Instance == null && scene.name == "Level1" && !hasInitializedRealGame)
+        {
+            InitForRealGame();
+        }
+    }
+
+    public void InitForRealGame()
+    {
+    if (hasInitializedRealGame) return;
+    currentQuest = startingQuest; // Quest đầu tiên
+    currentProgress = 0;
+    state = QuestState.NotStarted;
+    allQuestsCompleted = false;
+    hasInitializedRealGame = true;
+    // Cập nhật UI nếu QuestUI đã tồn tại
+    OnQuestUpdated?.Invoke();
+
+    if (QuestUI.Instance != null && currentQuest != null && currentQuest.giverNPC != null)
+    {
+        QuestUI.Instance.ShowHint($"Hãy đến gặp {currentQuest.giverNPC.npcName} để nhận nhiệm vụ đầu tiên!");
+    }
+
+    Debug.Log("[QuestManager] ✅ Đã khởi tạo quest đầu cho map thật.");
+}
 
     public void StartQuest(QuestData quest)
     {

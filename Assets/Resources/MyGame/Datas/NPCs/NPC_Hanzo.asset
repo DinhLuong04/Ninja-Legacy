@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c76d8a37e14c544b9de3a87013dd17d, type: 3}
+  m_Name: NPC_Hanzo
+  m_EditorClassIdentifier: 
+  npcName: Hanzo
+  portrait: {fileID: 21300000, guid: 52e52383e1d352441a6a55969e52f6ae, type: 3}
+  availableQuests: []
+  defaultDialogue: {fileID: 11400000, guid: 3612b9b48f189c74cbeff7faf62cc1ca, type: 2}

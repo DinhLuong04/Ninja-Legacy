@@ -88,6 +88,10 @@ public abstract class Enemy : MonoBehaviour
         DropItems();
         Destroy(GetComponentInChildren<EnemyHealthBar>()?.gameObject);
         Destroy(gameObject, 1f);
+        if (TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.OnEnemyKilled();
+        }
     }
 
     protected virtual void DropItems()

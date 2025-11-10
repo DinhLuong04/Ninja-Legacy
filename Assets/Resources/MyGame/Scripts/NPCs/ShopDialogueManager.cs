@@ -46,6 +46,10 @@ public class ShopDialogueManager : MonoBehaviour
     {
         shopDialoguePanel.SetActive(false);
         currentNpc?.OpenShop();
+        if (TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.OnShopOpened();
+        }
     }
 
     public void CloseDialogue()

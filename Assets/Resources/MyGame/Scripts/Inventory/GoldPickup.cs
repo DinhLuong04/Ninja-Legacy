@@ -15,6 +15,7 @@ public class GoldPickup : MonoBehaviour
             if (ps != null)
             {
                 ps.AddGold(goldAmount);
+                NotificationManager.Instance.Show($"Bạn đã nhận được {goldAmount} vàng");
                 Debug.Log($"Player nhận {goldAmount} vàng");
             }
             collected = true;

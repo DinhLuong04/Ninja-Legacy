@@ -7,7 +7,7 @@ public class InventoryController : MonoBehaviour
 {
     public GameObject inventoryPanel;
     public Button openButton; 
-    public Button closeButton; 
+    public Button closeButton;
 
     void Start()
     {
@@ -20,11 +20,26 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (inventoryPanel.activeSelf)
+                CloseInventory();
+            else
+                OpenInventory();
+        }
+    }
+    
     public void OpenInventory()
     {
         if (inventoryPanel != null && !inventoryPanel.activeSelf)
         {
             inventoryPanel.SetActive(true);
+            if( TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.OpenInventory= true;
+            }
             if (openButton != null) openButton.interactable = false; 
             if (closeButton != null) closeButton.interactable = true; 
             Debug.Log("Inventory opened");

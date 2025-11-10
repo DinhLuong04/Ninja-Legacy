@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -171,4 +172,21 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         dialoguePanel.SetActive(false);
     }
+    public void ShowTutorialDialogue(string message, float duration = 3f)
+{
+    dialoguePanel.SetActive(true);
+    dialogueText.text = message;
+    nextButton.gameObject.SetActive(false);
+    completeButton.gameObject.SetActive(false);
+    acceptButton.gameObject.SetActive(false);
+    StopAllCoroutines();
+    StartCoroutine(AutoHideDialogue(duration));
+}
+
+private IEnumerator AutoHideDialogue(float delay)
+{
+    yield return new WaitForSeconds(delay);
+    dialoguePanel.SetActive(false);
+}
+
 }

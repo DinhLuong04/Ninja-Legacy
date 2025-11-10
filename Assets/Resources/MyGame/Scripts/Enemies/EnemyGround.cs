@@ -39,7 +39,12 @@ public class EnemyGround : Enemy
     {
         float distToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
         float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
-
+        if (PlayerStats.Instance != null && PlayerStats.Instance.isDead)
+        {
+            Patrol();
+            animator?.SetBool("IsAttacking", false);
+            return;
+        }
         if (isDead || player == null) return;
         if (!CanDetectPlayer())
         {

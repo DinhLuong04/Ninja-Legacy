@@ -40,6 +40,10 @@ public class ItemUseHandler : MonoBehaviour
                 StartCoroutine(ApplyBuff(item));
                 break;
         }
+        if (TutorialManager.Instance != null && TutorialManager.Instance.currentStep == 11)
+        {
+            TutorialManager.Instance.NotifyItemUsed(item);
+        }
     }
 
     //  Chỉ 1 món ăn có hiệu lực
@@ -59,7 +63,7 @@ public class ItemUseHandler : MonoBehaviour
     private IEnumerator FoodRoutine(ItemData food)
     {
         BuffPanelManager.Instance.AddOrResetBuff(food);
-        Debug.Log($" Bắt đầu hiệu ứng: {food.itemName}");
+        NotificationManager.Instance.Show($"Sử dụng thức ăn: {food.itemName}");
 
         float elapsed = 0;
         while (elapsed < food.duration)
@@ -73,7 +77,7 @@ public class ItemUseHandler : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        Debug.Log($" Hết hiệu ứng: {food.itemName}");
+        NotificationManager.Instance.Show($"Thức ăn {food.itemName} đã hết hiệu lực ");
         BuffPanelManager.Instance.RemoveBuff(food);
         currentFoodItem = null;
         currentFoodCoroutine = null;
@@ -83,13 +87,13 @@ public class ItemUseHandler : MonoBehaviour
     private IEnumerator ApplyBuff(ItemData buff)
     {
         BuffPanelManager.Instance.AddOrResetBuff(buff);
-        Debug.Log($"Áp dụng buff: {buff.itemName}");
+        NotificationManager.Instance.Show($"Sử dụng  {buff.itemName}");
 
         player.RecalculateFromBuffs(); // Tính lại stat sau khi thêm buff
 
         yield return new WaitForSeconds(buff.duration);
 
-        Debug.Log($"💊 Hết hiệu lực: {buff.itemName}");
+        NotificationManager.Instance.Show($" {buff.itemName} đã hết hiệu lực");
         BuffPanelManager.Instance.RemoveBuff(buff);
         player.RecalculateFromBuffs(); // Tính lại stat sau khi hết buff
     }

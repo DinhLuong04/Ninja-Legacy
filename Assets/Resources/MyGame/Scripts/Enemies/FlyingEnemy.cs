@@ -37,6 +37,12 @@ public class FlyingEnemy : Enemy
     protected override void HandleAI()
     {
         float distToPlayer = Vector2.Distance(transform.position, player.position);
+        if (PlayerStats.Instance != null && PlayerStats.Instance.isDead)
+        {
+            Patrol();
+            animator?.SetBool("IsAttacking", false);
+            return;
+        }
         if (!CanDetectPlayer())
         {
             Patrol();

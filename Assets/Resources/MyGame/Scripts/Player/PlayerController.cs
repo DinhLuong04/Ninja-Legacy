@@ -24,17 +24,19 @@ public class PlayerController : MonoBehaviour
     private int isRunningHash = Animator.StringToHash("isRunning");
     private int isJumpingHash = Animator.StringToHash("isJumping");
     private int isFallingHash = Animator.StringToHash("isFalling");
-
+    private PlayerStats ps;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ps = PlayerStats.Instance;
         playerCollider = GetComponent<Collider2D>();
     }
 
     void Update()
     {
+        if(ps.isDead) return;
         // Input di chuyển
         horizontalInput = Input.GetAxisRaw("Horizontal");
 

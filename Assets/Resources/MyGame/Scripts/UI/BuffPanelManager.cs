@@ -121,4 +121,12 @@ public class BuffPanelManager : MonoBehaviour
         }
         return list;
     }
+    public void ClearAllBuffs()
+    {
+        foreach (var kvp in new List<ItemData>(activeBuffs.Keys))
+        {
+            RemoveBuff(kvp);
+        }
+    }
+
 }

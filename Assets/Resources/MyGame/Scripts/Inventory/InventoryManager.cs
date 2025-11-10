@@ -20,8 +20,7 @@ public class InventoryManager : MonoBehaviour
     [Header("References")]
     private PlayerStats playerStats;
     public ItemUseHandler itemUseHandler;
-
-     private
+    
     void Awake()
 {
         if (Instance == null) Instance = this;
@@ -75,7 +74,9 @@ public class InventoryManager : MonoBehaviour
                 itemImage.enabled = true;
                 countText.text = "";
                 slotItems[i] = newItem;
-                Debug.Log($"Added {newItem.itemName} to slot {i}");
+                NotificationManager.Instance.Show($"Bạn đã nhặt được {newItem.itemName} ");
+                if(QuickUseManager.Instance != null)
+                QuickUseManager.Instance.UpdateButton(newItem.itemType);
                 return;
             }
             else if (slotItems[i] == newItem)
@@ -85,6 +86,8 @@ public class InventoryManager : MonoBehaviour
                 count++;
                 countText.text = count >= 2 ? count.ToString() : "";
                 Debug.Log($" Increased {newItem.itemName} count to {count}");
+                if(QuickUseManager.Instance != null)
+                QuickUseManager.Instance.UpdateButton(newItem.itemType);
                 return;
             }
         }
@@ -117,8 +120,9 @@ public class InventoryManager : MonoBehaviour
 
     if (item.usable)
         itemUseHandler.UseItem(item);
-
     DecreaseItemCount(index);
+    if(QuickUseManager.Instance != null)
+        QuickUseManager.Instance.UpdateButton(item.itemType);
     itemInfoPanel.SetActive(false);
 }
 
@@ -142,4 +146,53 @@ public class InventoryManager : MonoBehaviour
             slotItems[index] = null;
         }
     }
+
+    public int CountItem(ItemType type)
+    {
+        int count = 0;
+        for (int i = 0; i < slotItems.Length; i++)
+        {
+            if (slotItems[i] != null && slotItems[i].itemType == type)
+            {
+                TextMeshProUGUI countText = slots[i].transform.Find("Count").GetComponent<TextMeshProUGUI>();
+                int c = string.IsNullOrEmpty(countText.text) ? 1 : int.Parse(countText.text);
+                count += c;
+            }
+        }
+        return count;
+    }
+public ItemData GetFirstItemOfType(ItemType type)
+{
+    for (int i = 0; i < slotItems.Length; i++)
+    {
+        if (slotItems[i] != null && slotItems[i].itemType == type)
+            return slotItems[i];
+    }
+    return null;
+}
+
+public void RemoveOneItem(ItemData item)
+{
+    for (int i = 0; i < slotItems.Length; i++)
+    {
+        if (slotItems[i] == item)
+        {
+            DecreaseItemCount(i);
+            return;
+        }
+    }
+}
+public void ResetForRealGame()
+{
+    for (int i = 0; i < slotItems.Length; i++)
+    {
+        slotItems[i] = null;
+        Transform itemT = slots[i].transform.Find("Item");
+        Transform countT = slots[i].transform.Find("Count");
+
+        if (itemT != null) itemT.GetComponent<Image>().sprite = null;
+        if (itemT != null) itemT.GetComponent<Image>().enabled = false;
+        if (countT != null) countT.GetComponent<TextMeshProUGUI>().text = "";
+    }
+}
 }

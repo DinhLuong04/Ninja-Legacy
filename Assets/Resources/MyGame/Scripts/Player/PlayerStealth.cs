@@ -33,6 +33,7 @@ public class PlayerStealth : MonoBehaviour
     }
     void Update()
     {
+        if(stats.isDead) return;
         // Bật/Tắt tàng hình
         if (Input.GetKeyDown(stealthKey))
         {
