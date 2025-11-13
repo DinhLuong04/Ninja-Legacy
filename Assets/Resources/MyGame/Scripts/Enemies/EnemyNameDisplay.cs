@@ -4,7 +4,7 @@ using TMPro;
 public class EnemyNameDisplay : MonoBehaviour
 {
     [Header("References")]
-    public TMP_Text nameText;      // Gán từ Inspector
+    public TMP_Text nameText;      
     public string enemyName = "Enemy";
 
     private void Start()

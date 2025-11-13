@@ -29,8 +29,6 @@ public class KeepUpright : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);  // luôn giữ hướng dương
             transform.localScale = scale;
 
-            // Nếu bạn dùng Canvas World Space thì có thể thêm dòng này để reset rotation
-            // transform.rotation = Quaternion.identity;
         }
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
     [Header("=== CÀI ĐẶT CHUYỂN MAP ===")]
-    public string targetScene = "Level2";           // Tên scene đích
-    public string spawnKey = "FromLevel1";          // Key để nhận diện spawn point
+    public string targetScene = "Level2";           
+    public string spawnKey = "FromLevel1";          
     public Vector2 spawnPosition = Vector2.zero;    // Vị trí player sẽ spawn
 
     [Header("=== TỰ ĐỘNG ===")]
     public bool autoTransition = true;              // Tự động khi vào vùng
-    public float transitionDelay = 0.3f;            // Delay nhỏ tránh lỗi
+    public float transitionDelay = 0.3f;            
 
     private bool isTransitioning = false;
 

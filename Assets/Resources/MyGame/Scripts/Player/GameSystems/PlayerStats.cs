@@ -77,7 +77,7 @@ public class PlayerStats : MonoBehaviour
         anim.SetBool("isHurt", false);
     }
     isDead = true;
-    StartCoroutine(HandleDeath()); // 🔥 gọi hồi sinh
+    StartCoroutine(HandleDeath());
 }
         else
         {
@@ -210,17 +210,15 @@ public class PlayerStats : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Tìm Player mới trong scene và gán Animator
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             anim = player.GetComponent<Animator>();
 
-        // Nếu UI bị reset, bạn cũng cần tìm lại các reference UI ở đây
         UpdateUI();
     }
 private IEnumerator HandleDeath()
 {
-    Debug.Log("[PlayerStats] 💀 Player đã chết, chờ hồi sinh...");
+    Debug.Log("[PlayerStats]  Player đã chết, chờ hồi sinh...");
 
     // Ngừng di chuyển
     var player = GameObject.FindGameObjectWithTag("Player");
@@ -232,12 +230,12 @@ private IEnumerator HandleDeath()
 
     yield return new WaitForSeconds(3f);
 
-    // 🔻 Trừ EXP (ví dụ 20% của expToNextLevel)
+    // Trừ EXP 
     int expLost = Mathf.RoundToInt(expToNextLevel * 0.2f);
-    exp -= expLost; // có thể âm
-    Debug.Log($"[PlayerStats] ❌ Mất {expLost} EXP khi chết. Hiện tại: {exp}/{expToNextLevel}");
+    exp -= expLost; 
+    Debug.Log($"[PlayerStats]  Mất {expLost} EXP khi chết. Hiện tại: {exp}/{expToNextLevel}");
 
-    // 🩸 Hồi sinh (không đổi level, không tụt chỉ số)
+    // Hồi sinh (không đổi level, không tụt chỉ số)
     currentHP = maxHP;
     currentMP = maxMP;
     isDead = false;

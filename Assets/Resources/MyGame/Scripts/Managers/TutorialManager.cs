@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour
     [Header("References")]
     public Transform tutorialNPC; // Hanzo
     public Transform shopNPC; // NPC bán đồ
-    public GameObject inventoryPanel; // kiểm tra mở hành trang
+    public GameObject inventoryPanel; 
 
     private bool hasBoughtHP = false;
     private bool hasBoughtMP = false;
@@ -117,7 +117,6 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case 6: // Giết quái
-                // cập nhật qua OnEnemyKilled()
                 break;
 
             case 7: // Mở shop

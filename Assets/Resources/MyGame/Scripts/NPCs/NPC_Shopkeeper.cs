@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class NPC_Shopkeeper : NPC
 {
-    private GameObject shopPanel; // Panel_NPCshop trong GameUI
+    private GameObject shopPanel; 
 
     protected override void Start()
     {
-        // Không cần hiển thị quest icon, nên override và không gọi base.Start()
         if (questAvailableIcon != null) questAvailableIcon.SetActive(false);
         if (questTurnInIcon != null) questTurnInIcon.SetActive(false);
     }

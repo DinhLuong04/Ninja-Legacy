@@ -99,12 +99,12 @@ public abstract class Boss : Enemy
 
     protected virtual void Patrol()
     {
-        // Override nếu cần
+       
     }
 
     protected virtual void ChasePlayer()
     {
-        // Override nếu cần
+        
     }
 
     protected virtual void AttackPlayer()
@@ -128,8 +128,8 @@ public abstract class Boss : Enemy
     if (currentState != BossState.Chase && currentState != BossState.Attack) return;
     if (Time.time < lastSkillTime + skillCooldown) return;
     
-    currentState = BossState.Casting; // ← DI CHUYỂN LÊN TRƯỚC
-    lastSkillTime = Time.time;        // ← UPDATE NGAY!
+    currentState = BossState.Casting;
+    lastSkillTime = Time.time;        
     
     Debug.Log("[TryStartCasting] → CASTING! Trigger CastSkill");
     animator?.SetTrigger("CastSkill");
@@ -174,7 +174,7 @@ public abstract class Boss : Enemy
 
     public override IEnumerator UseBossSkill(int skillId)
     {
-        yield return null; // Override ở con
+        yield return null; 
     }
     private bool IsPlayingAnimation(string animName)
 {

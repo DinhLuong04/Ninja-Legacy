@@ -8,9 +8,8 @@ public class BossSkillHit : MonoBehaviour
     public bool destroyOnHit = true;
     private int damage;
 
-    private Enemy boss; // CHUNG CHO TẤT CẢ BOSS (Enemy là cha)
+    private Enemy boss; 
 
-    // NHẬN BẤT KỲ BOSS NÀO KẾ THỪA TỪ Enemy
     public void Init(Enemy bossRef)
     {
         boss = bossRef;
@@ -19,7 +18,7 @@ public class BossSkillHit : MonoBehaviour
 
     void Start()
     {
-        // BACKUP: Nếu chưa Init, tìm Enemy/Boss trong cha
+        
         if (boss == null)
         {
             boss = GetComponentInParent<Enemy>();

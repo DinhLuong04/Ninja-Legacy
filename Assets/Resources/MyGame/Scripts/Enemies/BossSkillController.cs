@@ -6,7 +6,7 @@ public class BossSkillController : MonoBehaviour
 {
     [Header("Boss Skill Settings")]
     public GameObject[] skillPrefabs;
-    public float[] skillCooldowns; // cooldown riêng cho từng skill
+    public float[] skillCooldowns; 
 
     private float[] lastSkillTimes; // lưu lần dùng gần nhất
     private Enemy enemyScript;

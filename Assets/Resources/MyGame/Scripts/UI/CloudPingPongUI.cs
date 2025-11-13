@@ -20,7 +20,6 @@ public class CloudPingPongUI : MonoBehaviour
         // di chuyển cloud
         rectTransform.anchoredPosition += Vector2.right * speed * Time.deltaTime * direction;
 
-        // nếu đi quá khoảng moveDistance thì đổi hướng
         if (rectTransform.anchoredPosition.x >= startPos.x + moveDistance)
             direction = -1;
         else if (rectTransform.anchoredPosition.x <= startPos.x - moveDistance)

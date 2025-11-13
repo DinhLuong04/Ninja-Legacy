@@ -77,7 +77,7 @@ public class QuestManager : MonoBehaviour
         QuestUI.Instance.ShowHint($"Hãy đến gặp {currentQuest.giverNPC.npcName} để nhận nhiệm vụ đầu tiên!");
     }
 
-    Debug.Log("[QuestManager] ✅ Đã khởi tạo quest đầu cho map thật.");
+    Debug.Log("[QuestManager]  Đã khởi tạo quest đầu cho map thật.");
 }
 
     public void StartQuest(QuestData quest)

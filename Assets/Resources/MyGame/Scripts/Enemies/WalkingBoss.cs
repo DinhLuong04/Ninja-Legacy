@@ -44,11 +44,11 @@ public class WalkingBoss : Boss
         Vector2 playerPos = player.position;
         float horizontalDiff = playerPos.x - bossPos.x;
 
-        // 🔸 HƯỚNG NHÌN
+        //  HƯỚNG NHÌN
         if (horizontalDiff > 0.1f && !facingRight) Flip();
         if (horizontalDiff < -0.1f && facingRight) Flip();
 
-        // 🔸 DI CHUYỂN NGANG
+        //  DI CHUYỂN NGANG
         if (Mathf.Abs(horizontalDiff) > safeXDistance)
         {
             float moveDir = Mathf.Sign(horizontalDiff);
@@ -59,7 +59,7 @@ public class WalkingBoss : Boss
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-        // 🔸 ĐỔI HƯỚNG khi gặp TƯỜNG hoặc VỰC (không nhảy)
+        // ĐỔI HƯỚNG khi gặp TƯỜNG hoặc VỰC (không nhảy)
         if (IsWallAhead() || !IsGroundAhead())
         {
             Flip();
@@ -67,7 +67,7 @@ public class WalkingBoss : Boss
     }
     #endregion
 
-    #region --- GROUND DETECTION (Đơn giản) ---
+    #region --- GROUND DETECTION ---
     protected override bool CheckGrounded()
     {
         if (groundCheck == null) return false;
@@ -116,7 +116,7 @@ public class WalkingBoss : Boss
     // Chờ animation
     yield return new WaitForSeconds(1.0f);
 
-    // ✅ CRITICAL: UPDATE TIMER TRƯỚC KHI KẾT THÚC
+    // CRITICAL: UPDATE TIMER TRƯỚC KHI KẾT THÚC
     lastSkillTime = Time.time;
     
     animator?.SetBool("IsAttacking", false);
@@ -145,10 +145,9 @@ public class WalkingBoss : Boss
         if (rbSword != null)
         {
             rbSword.velocity = velocity;
-            rbSword.gravityScale = 0f; // Không rơi
+            rbSword.gravityScale = 0f; 
         }
 
-        // DAMAGE SIÊU MẠNH
         var hit = sword.GetComponent<BossSkillHit>();
         if (hit != null)
         {

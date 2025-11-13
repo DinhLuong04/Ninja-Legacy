@@ -75,13 +75,13 @@ public class FlyingBoss : FlyingEnemy
 
         switch (skillId)
         {
-            case 0: // 🔥 Khạc lửa thẳng về hướng player
+            case 0: //  Khạc lửa thẳng về hướng player
                 Vector2 dir = (player.position - transform.position).normalized;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 SpawnProjectile(skillController.skillPrefabs[0], transform.position, 10f, angle);
                 break;
 
-            case 1: // 🌧️ Mưa lửa rơi từ trên đầu player
+            case 1: //  Mưa lửa rơi từ trên đầu player
                 for (int i = 0; i < 5; i++)
                 {
                     Vector2 pos = player.position + new Vector3(Random.Range(-3f, 3f), 6f);
@@ -91,7 +91,7 @@ public class FlyingBoss : FlyingEnemy
                 }
                 break;
 
-            case 2: // 🌪️ Xoáy gió quanh player
+            case 2: // Xoáy gió quanh player
                 Vector2 center = player.position;
                 for (int i = 0; i < 6; i++)
                 {
@@ -130,16 +130,16 @@ public class FlyingBoss : FlyingEnemy
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, patrolRange); // 🟢 Vùng tuần tra
+        Gizmos.DrawWireSphere(transform.position, patrolRange); //  Vùng tuần tra
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, chaseRange);  // 🔵 Vùng đuổi theo
+        Gizmos.DrawWireSphere(transform.position, chaseRange);  // Vùng đuổi theo
 
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, stopDistance); // 🟣 Vùng dừng & bắn skill
+        Gizmos.DrawWireSphere(transform.position, stopDistance); //  Vùng dừng & bắn skill
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);  // 🔴 Vùng tấn công trực tiếp (nếu có)
+        Gizmos.DrawWireSphere(transform.position, attackRange);  // Vùng tấn công trực tiếp (nếu có)
 
         // Vẽ hướng nhìn / hướng bắn
         if (Application.isPlaying && player != null)

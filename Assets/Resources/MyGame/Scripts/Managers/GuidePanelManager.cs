@@ -5,8 +5,8 @@ using TMPro;
 public class GuidePanelManager : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject panelGuide;          // Panel_Guide
-    public Button closeButton;             // CloseInventory
+    public GameObject panelGuide;          
+    public Button closeButton;            
     private bool isOpen = false;
 
     private void Start()
@@ -33,8 +33,6 @@ public class GuidePanelManager : MonoBehaviour
 
         panelGuide.SetActive(true);
         isOpen = true;
-
-        // Báo về TutorialManager nếu cần
         if (TutorialManager.Instance != null)
             TutorialManager.Instance.OnHelpOpened();
     }
