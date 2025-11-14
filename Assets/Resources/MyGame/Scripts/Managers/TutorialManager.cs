@@ -46,8 +46,7 @@ public class TutorialManager : MonoBehaviour
     IEnumerator IntroDialogueSequence()
     {
         isTutorialActive = false;
-        tutorialText.text = "";
-
+        
         yield return ShowDialogue("Chào con, ta sẽ nhắc lại lý thuyết trước khi luyện tập.", 3f);
         yield return ShowDialogue("HP là sinh lực, MP là năng lượng cho kỹ năng tàng hình và tấn công .", 3f);
         yield return ShowDialogue("Khi chiến đấu, tiêu diệt quái sẽ nhận EXP để tăng level và chỉ số.", 3f);
@@ -179,8 +178,8 @@ public class TutorialManager : MonoBehaviour
             case 4: tutorialText.text = "Nhấn Q để đổi vũ khí"; break;
             case 5: tutorialText.text = "Nhấn T để tàng hình"; break;
             case 6: tutorialText.text = $"Tiêu diệt {enemiesKilled}/{enemiesToKill} quái vật"; break;
-            case 7: tutorialText.text = "Quay lại gặp Hanzo (E) để nhận nhiệm vụ tiếp theo"; break;
-            case 8: tutorialText.text = "Đến gặp Shopkeeper (E) để mở cửa hàng"; break;
+            case 7: tutorialText.text = "Quay lại gặp Hanzo (E) "; break;
+            case 8: tutorialText.text = "Đến gặp chủ tạp hóa (E) để mở cửa hàng"; break;
             case 9: tutorialText.text = "Mua 1 bình HP và 1 bình MP"; break;
             case 10: tutorialText.text = "Nhấn I hoặc nút túi để mở hành trang"; break;
             case 11: tutorialText.text = "Dùng bình HP và bình MP để hồi phục"; break;

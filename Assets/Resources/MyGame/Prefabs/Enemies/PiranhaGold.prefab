@@ -199,7 +199,11 @@ MonoBehaviour:
   damage: 10
   expReward: 20
   enemyType: 18
-  dropPrefabs: []
+  dropPrefabs:
+  - {fileID: 7263998989712349306, guid: 910dc518ccef02d4c9b3cfe600885a9d, type: 3}
+  - {fileID: 7263998989712349306, guid: c95cc0b4d3b51a940a35c5260d6f6811, type: 3}
+  - {fileID: 5965267108986183865, guid: e85a68ba4ce21a14b8f296b15068b579, type: 3}
+  - {fileID: 3628646249997969593, guid: 71b50b06c0d4cd740ad993b19663cb1a, type: 3}
   dropChance: 0.5
   maxDropCount: 1
   isBoss: 0
@@ -361,8 +365,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "C\xE1 Piranha v\xE0ng"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 05d6d13d401578a4cac557196c4b163c, type: 2}
+  m_sharedMaterial: {fileID: -231819097899357402, guid: 05d6d13d401578a4cac557196c4b163c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

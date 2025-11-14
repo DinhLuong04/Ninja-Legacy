@@ -53,7 +53,12 @@ public class InventoryManager : MonoBehaviour
             // Clear UI ban đầu
             Transform itemT = slots[i].transform.Find("Item");
             Transform countT = slots[i].transform.Find("Count");
-            if (itemT) itemT.GetComponent<Image>().sprite = null;
+            if (itemT)
+            {
+                Image img = itemT.GetComponent<Image>();
+                img.sprite = null;
+                img.enabled = false; 
+            } 
             if (countT) countT.GetComponent<TextMeshProUGUI>().text = "";
         }
 
