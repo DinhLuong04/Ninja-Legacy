@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc56b9485f9585748a9e0e3491538108, type: 3}
-  m_Name: Quest_Sanosuke
+  m_Name: M06
   m_EditorClassIdentifier: 
-  questName: 
-  description: 
+  questName: "Truy L\xF9ng Qu\u1EF7"
+  description: "Ti\xEAu di\u1EC7t 5 Qu\u1EF7 1 m\u1EAFt"
   questType: 0
-  targetEnemyType: 0
-  requiredAmount: 3
-  rewardExp: 100
+  targetItem: {fileID: 0}
+  targetEnemyType: 14
+  requiredAmount: 5
+  rewardExp: 50
   previousQuest: {fileID: 11400000, guid: dc9bf2956ee7eca43a2cd9e307b50142, type: 2}
   giverNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
   receiverNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
-  nextQuest: {fileID: 0}
-  nextQuestNPC: {fileID: 0}
-  dialogueNotStarted: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
-  dialogueInProgress: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
-  dialogueCompleted: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
-  dialogueRewarded: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
+  nextQuest: {fileID: 11400000, guid: 8ce871c98513e8f4faec5f6588fe4117, type: 2}
+  nextQuestNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
+  dialogueNotStarted: {fileID: 11400000, guid: 3a240c78d3e03884581e6980ddb0975a, type: 2}
+  dialogueInProgress: {fileID: 11400000, guid: c9b9b6b39b253ac4fb9bfe62eb063a37, type: 2}
+  dialogueCompleted: {fileID: 11400000, guid: 0f89698adab88814998b716b651a7e35, type: 2}

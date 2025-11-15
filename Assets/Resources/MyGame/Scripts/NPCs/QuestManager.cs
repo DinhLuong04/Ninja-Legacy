@@ -119,6 +119,32 @@ public class QuestManager : MonoBehaviour
 
         }
     }
+    public void ItemCollected(ItemData item)
+{
+    if (currentQuest == null || state != QuestState.InProgress) return;
+
+    if (currentQuest.questType != QuestType.Collect) return;
+
+    if (item != currentQuest.targetItem) return;
+
+    int itemsInInventory = InventoryManager.Instance.GetItemCount(item);
+    currentProgress = itemsInInventory;
+    
+    if (QuestUI.Instance != null)
+        QuestUI.Instance.ShowQuest(currentQuest.questName, currentQuest.description, $"{currentProgress} / {currentQuest.requiredAmount}");
+
+    if (currentProgress >= currentQuest.requiredAmount)
+    {
+        state = QuestState.Completed;
+        OnQuestUpdated?.Invoke();
+
+        if (QuestUI.Instance != null && currentQuest.receiverNPC != null)
+        {
+            string npcName = currentQuest.receiverNPC.npcName;
+            QuestUI.Instance.ShowHint($"Hãy quay lại gặp {npcName} để báo cáo nhiệm vụ!");
+        }
+    }
+}
 
     public bool CanReport(string npcName)
     {
@@ -143,6 +169,15 @@ public class QuestManager : MonoBehaviour
         {
             PlayerStats ps = PlayerStats.Instance;
             if (ps != null) ps.GainExp(currentQuest.rewardExp);
+        }
+        // Nếu là quest Collect, xóa toàn bộ vật phẩm mục tiêu
+        if (currentQuest.questType == QuestType.Collect && currentQuest.targetItem != null)
+        {
+            int itemCount = InventoryManager.Instance.GetItemCount(currentQuest.targetItem);
+            if (itemCount > 0)
+                InventoryManager.Instance.RemoveItem(currentQuest.targetItem, itemCount);
+
+            Debug.Log($"[QuestManager] Đã xóa {itemCount} x {currentQuest.targetItem.itemName} sau khi báo cáo.");
         }
 
         

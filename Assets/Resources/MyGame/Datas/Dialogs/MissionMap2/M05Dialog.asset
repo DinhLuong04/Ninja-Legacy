@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
-  m_Name: Vilage_Chief_default
+  m_Name: M05Dialog
   m_EditorClassIdentifier: 
   sentences:
-  - "H\xE3y t\u1EADp luy\u1EC7n \u0111\u1EC3 m\u1EA1nh h\u01A1n"
-  - "AC l\xE0 \u0111\u01B0\u1EE3c"
+  - "Con \u0111\xE3 s\u1EB5n s\xE0ng cho chuy\u1EBFn \u0111i xa h\u01A1n ch\u01B0a?
+    Khu r\u1EEBng ph\xEDa b\xEAn ph\u1EA3i  L\xE0ng \u0111ang xu\u1EA5t hi\u1EC7n
+    nh\u1EEFng lo\xE0i qu\xE1i v\u1EADt l\u1EA1. H\xE3y ti\u1EBFn v\xE0o \u0111\xF3,
+    ti\xEAu di\u1EC7t 3 ong v\xE0 mang tin t\u1EE9c n\xE0y \u0111\u1EBFn b\xE1o c\xE1o
+    cho C\xF4 Ameji"

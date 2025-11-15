@@ -8,7 +8,10 @@ public class QuestData : ScriptableObject
     public string questName;
     [TextArea] public string description;
     public QuestType questType;
-
+    [Header("Collect Quest")]
+    public ItemData targetItem;
+    public GameObject CollectItemPrefab;
+    [Header("Kill Quest")]
     public EnemyType targetEnemyType;
     public int requiredAmount = 1;
     public int rewardExp = 50;
@@ -22,5 +25,5 @@ public class QuestData : ScriptableObject
     public DialogueData dialogueNotStarted; // Lời mời nhận quest
     public DialogueData dialogueInProgress; // Lời động viên khi làm
     public DialogueData dialogueCompleted; // Lời chúc mừng/report
-    public DialogueData dialogueRewarded;  
+
 }

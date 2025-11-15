@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc56b9485f9585748a9e0e3491538108, type: 3}
+  m_Name: M09
+  m_EditorClassIdentifier: 
+  questName: "Thu Th\u1EADp C\u1ED5 Ng\u1EEF"
+  description: "Thu th\u1EADp 5 Mai R\xF9a v\xE0ng"
+  questType: 1
+  targetItem: {fileID: 11400000, guid: 4876634cf9deaab4298c77be198ec37c, type: 2}
+  CollectItemPrefab: {fileID: 7449446472548512617, guid: f557990490ff30443985b0d936be9b95, type: 3}
+  targetEnemyType: 23
+  requiredAmount: 5
+  rewardExp: 50
+  previousQuest: {fileID: 11400000, guid: 0f1f9c0dc7f5648428d3a2d6a9690cfc, type: 2}
+  giverNPC: {fileID: 11400000, guid: 7a19a416896676d41bc616a74df30453, type: 2}
+  receiverNPC: {fileID: 11400000, guid: 7a19a416896676d41bc616a74df30453, type: 2}
+  nextQuest: {fileID: 11400000, guid: 7d957ef4ce0f3824083ad473a13224be, type: 2}
+  nextQuestNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
+  dialogueNotStarted: {fileID: 11400000, guid: 16aded88661c2b04499e19c9dc4c7ab6, type: 2}
+  dialogueInProgress: {fileID: 11400000, guid: c9b9b6b39b253ac4fb9bfe62eb063a37, type: 2}
+  dialogueCompleted: {fileID: 11400000, guid: 0f89698adab88814998b716b651a7e35, type: 2}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: DialogueComplete
+  m_EditorClassIdentifier: 
+  sentences:
+  - "\"Xong r\u1ED3i sao? T\u1ED1t l\u1EAFm!\",\r\n\"Ta c\xF3 th\u1EC3 th\u1EA5y
+    s\u1EF1 thay \u0111\u1ED5i trong \xE1nh m\u1EAFt con\u2026 con \u0111\xE3 ho\xE0n
+    th\xE0nh nhi\u1EC7m v\u1EE5 r\u1ED3i nh\u1EC9.\",\r\n\"Gi\u1ECFi l\u1EAFm! Ta
+    bi\u1EBFt con s\u1EBD l\xE0m \u0111\u01B0\u1EE3c.\",\r\n\"Th\xE0nh c\xF4ng r\u1ED3i,
+    quay l\u1EA1i \u0111\xE2y nh\u1EADn ph\u1EA7n th\u01B0\u1EDFng \u0111i.\"\r\n"

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: DialogueInprogress
+  m_EditorClassIdentifier: 
+  sentences:
+  - "\r\"\u0110\u1EEBng v\u1ED9i v\xE0ng, c\u1EE9 b\xECnh t\u0129nh m\xE0 l\xE0m.\",\r\n\"Nh\u1EDB
+    c\u1EA9n th\u1EADn, nhi\u1EC7m v\u1EE5 n\xE0y c\u0169ng kh\xF4ng d\u1EC5 \u0111\xE2u.\",\r\n\"C\u1ED1
+    l\xEAn, ta tin con l\xE0m \u0111\u01B0\u1EE3c.\",\r\n\"N\u1EBFu th\u1EA5y m\u1EC7t,
+    h\xE3y quay l\u1EA1i sau m\u1ED9t ch\xFAt c\u0169ng \u0111\u01B0\u1EE3c.\"\r\n"

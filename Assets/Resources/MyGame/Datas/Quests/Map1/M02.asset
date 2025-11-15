@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc56b9485f9585748a9e0e3491538108, type: 3}
-  m_Name: Quest_KillSlim
+  m_Name: M02
   m_EditorClassIdentifier: 
-  questName: Quest_KillSlim
-  description: "H\u1EA1 1 con d\u01A1i"
+  questName: "M\u1ED1i Lo D\u01B0\u1EDBi N\u01B0\u1EDBc"
+  description: "Ti\xEAu di\u1EC7t 3 C\xE1 piranha xanh"
   questType: 0
-  targetEnemyType: 1
-  requiredAmount: 1
+  targetItem: {fileID: 0}
+  targetEnemyType: 17
+  requiredAmount: 3
   rewardExp: 50
   previousQuest: {fileID: 11400000, guid: bc74f8080d5e9d848abf72f00c3dd8b8, type: 2}
   giverNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
   receiverNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
-  nextQuest: {fileID: 11400000, guid: 8ce871c98513e8f4faec5f6588fe4117, type: 2}
-  nextQuestNPC: {fileID: 11400000, guid: 1a66bb6998afd4f41839dd75ebc3727b, type: 2}
-  dialogueNotStarted: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
-  dialogueInProgress: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
-  dialogueCompleted: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
-  dialogueRewarded: {fileID: 11400000, guid: f1f71f9391ec74244afc92bd77ae6982, type: 2}
+  nextQuest: {fileID: 11400000, guid: 5f6e5dec2613aed4c914855b7358c2a7, type: 2}
+  nextQuestNPC: {fileID: 11400000, guid: 7a19a416896676d41bc616a74df30453, type: 2}
+  dialogueNotStarted: {fileID: 11400000, guid: f2efa656b49b47f488cc681bd3be8228, type: 2}
+  dialogueInProgress: {fileID: 11400000, guid: 0f89698adab88814998b716b651a7e35, type: 2}
+  dialogueCompleted: {fileID: 11400000, guid: 0f89698adab88814998b716b651a7e35, type: 2}

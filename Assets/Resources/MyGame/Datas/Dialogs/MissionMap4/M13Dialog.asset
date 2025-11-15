@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: M13Dialog
+  m_EditorClassIdentifier: 
+  sentences:
+  - "Lo\u1EA1i ki\u1EBFm kh\xE1ch nguy hi\u1EC3m h\u01A1n l\xE0 Ki\u1EBFm kh\xE1ch
+    \u0111\u1ED9i n\xF3n. Ch\xFAng c\xF3 v\u1EBB l\xE0 th\u1EE7 l\u0129nh c\u1EE7a
+    l\u0169 qu\u1EF7. Con ph\u1EA3i ti\xEAu di\u1EC7t 3 ng\u01B0\u1EDDi trong s\u1ED1
+    ch\xFAng \u0111\u1EC3 l\xE0m suy y\u1EBFu Mi\u1EBFu Hoang."

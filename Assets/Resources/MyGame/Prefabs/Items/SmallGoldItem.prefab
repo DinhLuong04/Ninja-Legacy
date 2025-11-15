@@ -250,3 +250,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldAmount: 10
+  pickupSound: {fileID: 8300000, guid: b47a4e6041dac0443a91b96f8f5abae0, type: 3}
+  volume: 0.5

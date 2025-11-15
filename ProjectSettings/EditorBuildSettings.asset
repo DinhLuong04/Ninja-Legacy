@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Resources/MyGame/Scenes/LobbyScene.unity
+    guid: 9dcb791d98ada104ba65cef05694922f
+  - enabled: 1
+    path: Assets/Resources/MyGame/Scenes/IntroStory.unity
+    guid: 586d1945766cb6b449b87a5119725c3a
+  - enabled: 1
+    path: Assets/Resources/MyGame/Scenes/Tutorial.unity
+    guid: 66a1144e521d6f3438b4100bc4097d23
+  - enabled: 1
     path: Assets/Resources/MyGame/Scenes/Level1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -17,10 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/MyGame/Scenes/Level4.unity
     guid: 6288c7f239fb68348b33ab376d7f8820
-  - enabled: 1
-    path: Assets/Resources/MyGame/Scenes/IntroStory.unity
-    guid: 586d1945766cb6b449b87a5119725c3a
-  - enabled: 1
-    path: Assets/Resources/MyGame/Scenes/Tutorial.unity
-    guid: 66a1144e521d6f3438b4100bc4097d23
   m_configObjects: {}

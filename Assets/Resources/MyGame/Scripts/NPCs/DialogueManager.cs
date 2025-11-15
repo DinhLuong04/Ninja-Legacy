@@ -59,11 +59,6 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (currentQuest != null && state == QuestState.Rewarded && currentQuest.giverNPC == npcData)
-        {
-            ShowDialogue(currentQuest.dialogueRewarded);
-            return;
-        }
 
         if (currentQuest != null && state == QuestState.NotStarted && currentQuest.giverNPC == npcData)
         {
@@ -81,24 +76,42 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void ShowDialogue(DialogueData data)
+   void ShowDialogue(DialogueData data)
+{
+    if (data == null)
     {
-        if (data == null)
-        {
-            dialoguePanel.SetActive(false);
-            return;
-        }
-
-        sentences = data.sentences;
-        index = 0;
-
-        dialoguePanel.SetActive(true);
-        dialogueText.text = sentences[index];
-
-        nextButton.gameObject.SetActive(sentences.Length > 1);
-        acceptButton.gameObject.SetActive(false);
-        completeButton.gameObject.SetActive(false);
+        dialoguePanel.SetActive(false);
+        return;
     }
+
+    sentences = data.sentences;
+    index = 0;
+
+    dialoguePanel.SetActive(true);
+    dialogueText.text = sentences[index];
+
+    // Reset tất cả nút
+    nextButton.gameObject.SetActive(false);
+    acceptButton.gameObject.SetActive(false);
+    completeButton.gameObject.SetActive(false);
+
+    // Nếu có nhiều câu → dùng NEXT
+    if (sentences.Length > 1)
+    {
+        nextButton.gameObject.SetActive(true);
+        return;
+    }
+
+    // Nếu chỉ có 1 câu → kiểm tra nút nhiệm vụ ngay lập tức
+    UpdateButtonVisibility();
+
+    // Nếu không phải nhiệm vụ → auto-close
+    if (!acceptButton.gameObject.activeSelf && !completeButton.gameObject.activeSelf)
+    {
+        StartCoroutine(CloseDialogueAfterDelay(2f));
+    }
+}
+
 
     public void NextSentence()
 {

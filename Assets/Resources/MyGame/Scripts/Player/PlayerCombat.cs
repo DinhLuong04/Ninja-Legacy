@@ -8,6 +8,11 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject slashEffectPrefab;
     [SerializeField] private WeaponManager weaponManager;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip meleeAttackClip;
+    [SerializeField] private AudioClip rangedAttackClip;
+
     private bool isAttacking = false;
     private bool isInputLocked = false;
 
@@ -34,8 +39,12 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
         isInputLocked = true;
         playerAnimator.SetBool("isAttacking", true);
+
+        // Play melee sound
+        if (audioSource != null && meleeAttackClip != null)
+            audioSource.PlayOneShot(meleeAttackClip);
+
         StartCoroutine(LockInputForAnimation(0.5f));
-      
     }
 
     void AttackRanged()
@@ -43,8 +52,12 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
         isInputLocked = true;
         playerAnimator.SetBool("isThrowing", true);
+
+        // Play ranged sound
+        if (audioSource != null && rangedAttackClip != null)
+            audioSource.PlayOneShot(rangedAttackClip);
+
         StartCoroutine(LockInputForAnimation(0.5f));
-     
     }
 
     private System.Collections.IEnumerator LockInputForAnimation(float duration)
@@ -106,10 +119,11 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = false;
         isInputLocked = false;
     }
+
     public void EndAttack()
-{
-    isAttacking = false;
-    isInputLocked = false;
-    playerAnimator.SetBool("isAttacking", false);
-}
+    {
+        isAttacking = false;
+        isInputLocked = false;
+        playerAnimator.SetBool("isAttacking", false);
+    }
 }

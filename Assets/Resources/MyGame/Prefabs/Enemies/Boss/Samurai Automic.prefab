@@ -723,8 +723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2bb73af5e678b439d962e399acbc0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
-  damage: 10
+  maxHP: 1000
+  damage: 70
   expReward: 20
   enemyType: 3
   dropPrefabs: []

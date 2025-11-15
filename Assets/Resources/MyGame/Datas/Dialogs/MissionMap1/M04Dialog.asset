@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: M04Dialog
+  m_EditorClassIdentifier: 
+  sentences:
+  - "Nh\u1EEFng con Nh\u1EC7n t\xEDm b\u1EAFt \u0111\u1EA7u lan r\u1ED9ng ra khu
+    v\u1EF1c L\xE0ng. N\u1EBFu \u0111\u1EC3 ch\xFAng sinh s\xF4i th\xEC r\u1EA5t
+    nguy hi\u1EC3m.H\xE3y ti\xEAu di\u1EC7t 5 con."

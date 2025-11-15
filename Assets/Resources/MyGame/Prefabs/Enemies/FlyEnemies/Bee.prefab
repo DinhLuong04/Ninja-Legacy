@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 50
-  damage: 10
+  damage: 15
   expReward: 20
   enemyType: 5
   dropPrefabs: []

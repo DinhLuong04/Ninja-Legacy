@@ -200,4 +200,102 @@ public void ResetForRealGame()
         if (countT != null) countT.GetComponent<TextMeshProUGUI>().text = "";
     }
 }
+
+
+
+public int GetItemCount(ItemData item)
+{
+    if (item == null) return 0;
+    
+    int count = 0;
+    
+    for (int i = 0; i < slotItems.Length; i++)
+    {
+   
+        if (slotItems[i] == item)
+        {
+ 
+            TextMeshProUGUI countText = slots[i].transform.Find("Count").GetComponent<TextMeshProUGUI>();
+            
+          
+            int slotCount;
+            if (string.IsNullOrEmpty(countText.text))
+            {
+                slotCount = 1;
+            }
+            else
+            {
+           
+                if (!int.TryParse(countText.text, out slotCount))
+                {
+                    slotCount = 0; 
+                  
+                }
+            }
+            count += slotCount;
+        }
+    }
+    return count;
+}
+
+// Trong file InventoryManager.cs
+
+public void RemoveItem(ItemData item, int amount)
+{
+    if (item == null || amount <= 0) return;
+    
+    int remainingToRemove = amount;
+    
+  
+    for (int i = slotItems.Length - 1; i >= 0 && remainingToRemove > 0; i--)
+    {
+        if (slotItems[i] == item)
+        {
+          
+            TextMeshProUGUI countText = slots[i].transform.Find("Count").GetComponent<TextMeshProUGUI>();
+            
+          
+            int currentCount;
+            if (string.IsNullOrEmpty(countText.text))
+            {
+                currentCount = 1;
+            }
+            else
+            {
+                if (!int.TryParse(countText.text, out currentCount)) continue; 
+            }
+
+            int toRemoveThisSlot = Mathf.Min(currentCount, remainingToRemove);
+            
+            // Cập nhật số lượng cần xóa
+            remainingToRemove -= toRemoveThisSlot;
+            
+            // Cập nhật slot
+            int newCount = currentCount - toRemoveThisSlot;
+
+            if (newCount > 0)
+            {
+                countText.text = newCount >= 2 ? newCount.ToString() : "";
+            }
+            else
+            {
+                Image itemImage = slots[i].transform.Find("Item").GetComponent<Image>();
+                itemImage.sprite = null;
+                itemImage.enabled = false;
+                countText.text = "";
+                slotItems[i] = null;
+            }
+        }
+    }
+    
+    if (remainingToRemove > 0)
+    {
+        Debug.LogWarning($"Không thể xóa đủ {amount} x {item.itemName}. Thiếu {remainingToRemove} vật phẩm.");
+    }
+
+    if (QuickUseManager.Instance != null)
+    {
+        QuickUseManager.Instance.UpdateButton(item.itemType);
+    }
+}
 }

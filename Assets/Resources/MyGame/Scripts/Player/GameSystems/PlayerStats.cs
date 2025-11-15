@@ -136,12 +136,12 @@ public class PlayerStats : MonoBehaviour
         expToNextLevel += 50;
         baseMaxHP += 20;
         baseMaxMP += 10;
-
+        baseDamage += 10;
         maxHP = baseMaxHP;
         maxMP = baseMaxMP;
         currentHP = maxHP;
         currentMP = maxMP;
-
+        RecalculateFromBuffs();
         UpdateUI();
     }
 
@@ -267,14 +267,14 @@ public void ResetForRealGame()
     exp = 0;
     expToNextLevel = 100;
 
-    baseMaxHP = 100;
-    baseMaxMP = 50;
+    baseMaxHP = 200;
+    baseMaxMP = 80;
     maxHP = baseMaxHP;
     maxMP = baseMaxMP;
     currentHP = maxHP;
     currentMP = maxMP;
 
-    baseDamage = 10;
+    baseDamage = 15;
     currentDamage = baseDamage;
 
     gold = 500;
@@ -284,6 +284,10 @@ public void ResetForRealGame()
     BuffPanelManager.Instance.ClearAllBuffs();
 
     UpdateUI();
+}
+public int GetDamage()
+{
+    return currentDamage;
 }
 
 }

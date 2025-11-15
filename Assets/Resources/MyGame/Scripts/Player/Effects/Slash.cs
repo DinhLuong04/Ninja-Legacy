@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class Slash : MonoBehaviour
 {
-    [SerializeField] public int damage = 15;
+    public int damage;
     public float lifetime = 0.2f; 
+
+    void Awake()
+    {
+        // Lấy damage từ PlayerStats
+        PlayerStats playerStats = PlayerStats.Instance;
+        if (playerStats != null)
+            damage = Mathf.RoundToInt(playerStats.GetDamage() / 3f);
+    }
 
     void Start()
     {

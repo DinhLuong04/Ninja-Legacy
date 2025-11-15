@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: M06Dialog
+  m_EditorClassIdentifier: 
+  sentences:
+  - "L\u0169 Qu\u1EF7 1 m\u1EAFt l\xE0 m\u1ED1i nguy th\u1EF1c s\u1EF1 trong r\u1EEBng
+    s\xE2u. Ch\xFAng th\xF4ng minh v\xE0 hung d\u1EEF h\u01A1n. H\xE3y s\u0103n l\xF9ng
+    v\xE0 ti\xEAu di\u1EC7t 5 con \u0111\u1EC3 \u0111\u1EA3m b\u1EA3o an to\xE0n
+    cho nh\u1EEFng ng\u01B0\u1EDDi qua \u0111\u01B0\u1EDDng"

@@ -133,8 +133,6 @@ public class NPC : MonoBehaviour
                     return quest.dialogueInProgress;
                 if (state == QuestState.Completed && qm.CanReport(npcData.npcName))
                     return quest.dialogueCompleted;
-                if (state == QuestState.Rewarded && npcData == quest.giverNPC)
-                    return quest.dialogueRewarded;
             }
         }
         return null;

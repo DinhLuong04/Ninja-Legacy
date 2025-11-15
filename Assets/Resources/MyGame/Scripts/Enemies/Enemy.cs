@@ -94,35 +94,58 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void DropItems()
+protected virtual void DropItems()
 {
+    QuestData currentQuest = QuestManager.Instance?.GetCurrentQuest();
+    QuestState questState = QuestManager.Instance != null ? QuestManager.Instance.GetState() : QuestState.NotStarted;
+
+    if (currentQuest != null && questState == QuestState.InProgress &&
+        currentQuest.questType == QuestType.Collect &&
+        currentQuest.targetEnemyType == this.enemyType &&
+        currentQuest.CollectItemPrefab != null)
+    {
+        int currentCount = InventoryManager.Instance.GetItemCount(currentQuest.targetItem);
+        if (currentCount < currentQuest.requiredAmount)
+        {
+            SpawnDrop(currentQuest.CollectItemPrefab);
+            Debug.Log($"[QUEST] Dropped collect item: {currentQuest.targetItem.name}");
+        }
+    }
+
     if (dropPrefabs == null || dropPrefabs.Length == 0) return;
 
-    // Nếu là boss thì rơi nhiều món hơn
     int dropCount = isBoss ? maxDropCount : 1;
-    dropCount = Mathf.Min(dropCount, dropPrefabs.Length);
-
     for (int i = 0; i < dropCount; i++)
     {
-        // Chọn ngẫu nhiên 1 vật phẩm từ danh sách
         GameObject dropPrefab = dropPrefabs[UnityEngine.Random.Range(0, dropPrefabs.Length)];
         if (dropPrefab == null) continue;
 
-        // Vị trí rơi hơi lệch xung quanh quái
-        Vector3 dropPos = transform.position + new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0.5f, 0);
-        GameObject drop = Instantiate(dropPrefab, dropPos, Quaternion.identity);
+        ItemData itemData = dropPrefab.GetComponent<ItemPickup>()?.itemData;
 
-        // Bắn nhẹ item ra xung quanh
-        Rigidbody2D rb = drop.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            Vector2 forceDir = new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized;
-            rb.AddForce(forceDir * UnityEngine.Random.Range(2f, 3f), ForceMode2D.Impulse);
-        }
+        if (currentQuest != null && currentQuest.questType == QuestType.Collect &&
+            itemData == currentQuest.targetItem)
+            continue;
 
+        SpawnDrop(dropPrefab);
         Debug.Log($"{gameObject.name} dropped {dropPrefab.name}");
     }
 }
+
+private void SpawnDrop(GameObject prefab)
+{
+    Vector3 dropPos = transform.position + new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0.5f, 0);
+    GameObject drop = Instantiate(prefab, dropPos, Quaternion.identity);
+
+    Rigidbody2D rb = drop.GetComponent<Rigidbody2D>();
+    if (rb != null)
+    {
+        Vector2 forceDir = new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized;
+        rb.AddForce(forceDir * UnityEngine.Random.Range(2f, 3f), ForceMode2D.Impulse);
+    }
+}
+
+
+
 
 
     public void DealDamage()

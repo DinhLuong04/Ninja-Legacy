@@ -250,4 +250,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: e1beb7cb69d8af8409523b70febaecdc, type: 2}
-  inventory: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: b47a4e6041dac0443a91b96f8f5abae0, type: 3}
+  volume: 0.5

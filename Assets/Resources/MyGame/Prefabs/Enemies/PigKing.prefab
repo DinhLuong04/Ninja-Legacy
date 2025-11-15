@@ -195,9 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60005bb380cb65443867de88f861f77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
-  damage: 10
-  expReward: 20
+  maxHP: 200
+  damage: 30
+  expReward: 40
   enemyType: 16
   dropPrefabs:
   - {fileID: 7263998989712349306, guid: 910dc518ccef02d4c9b3cfe600885a9d, type: 3}

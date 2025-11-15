@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: M11Dialog
+  m_EditorClassIdentifier: 
+  sentences:
+  - "M\u1ED9t linh h\u1ED3n b\xF3ng \u0111\xEAm, B\xF3ng qu\u1EF7 bay, \u0111ang
+    t\u1EA1o ra s\u01B0\u01A1ng m\xF9 \u0111\xF3ng b\u0103ng tr\xEAn s\xF4ng b\u0103ng.
+    N\xF3 ph\u1EA3i b\u1ECB ti\xEAu di\u1EC7t!"

@@ -1,20 +1,23 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Shuriken : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private int damage;
-
+    
+    private int damage ;
     [SerializeField] private float rotateSpeed = 720f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        PlayerStats playerStats = PlayerStats.Instance;
+        damage =  Mathf.RoundToInt(playerStats.GetDamage() * 0.8f);
     }
 
     public void Launch(Vector2 direction, float speed, int dmg)
     {
-        damage = dmg;
+        
         rb.velocity = direction * speed;
         Destroy(gameObject, 3f);
     }

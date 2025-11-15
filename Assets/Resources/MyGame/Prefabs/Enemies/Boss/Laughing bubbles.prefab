@@ -452,8 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8199dadae63e4bd419741d5a5674d47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
-  damage: 10
+  maxHP: 1000
+  damage: 80
   expReward: 20
   enemyType: 2
   dropPrefabs:
@@ -466,7 +466,7 @@ MonoBehaviour:
   isBoss: 1
   animator: {fileID: 2688796243181725810}
   enemyPrefab: {fileID: 0}
-  attackRange: 1
+  attackRange: 1.12
   attackCooldown: 1.5
   moveSpeed: 2
   patrolRange: 3

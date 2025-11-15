@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfb04b119348794697a7f8018097ccf, type: 3}
+  m_Name: M03Dialog
+  m_EditorClassIdentifier: 
+  sentences:
+  - "H\u1EE1i nh\u1EABn gi\u1EA3 tr\u1EBB tu\u1ED5i, ta \u0111ang th\u1EF1c hi\u1EC7n
+    m\u1ED9t nghi l\u1EC5 quan tr\u1ECDng v\xE0 c\u1EA7n m\u1ED9t v\u1EADt ph\u1EA9m
+    qu\xFD. Con c\xF3 th\u1EC3 t\xECm 3 chi\u1EBFc v\u1ECF \u1ED0c v\xE0ng \u1EDF
+    quanh khu v\u1EF1c th\xE1c n\u01B0\u1EDBc  kh\xF4ng? Ch\xFAng r\u1EA5t hi\u1EBFm
+    v\xE0 c\u1EA7n s\u1EF1 tinh m\u1EAFt c\u1EE7a con."
