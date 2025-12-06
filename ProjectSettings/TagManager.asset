@@ -10,6 +10,7 @@ TagManager:
   - PlayerAttack
   - Enemy
   - GoldText
+  - DDOL
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4406128192067025786}
   m_Layer: 0
   m_Name: Managers
-  m_TagString: Untagged
+  m_TagString: DDOL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,9 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2408bd5f664304393cf87ed0cd4481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstQuest: {fileID: 11400000, guid: bc74f8080d5e9d848abf72f00c3dd8b8, type: 2}
-  activeQuests: []
-  completedQuestIDs: []
+  startingQuest: {fileID: 0}
 --- !u!114 &8603011228586199335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +105,6 @@ MonoBehaviour:
   itemNameText: {fileID: 0}
   itemDescriptionText: {fileID: 0}
   useButton: {fileID: 0}
-  playerStats: {fileID: 4406128192067025786}
   itemUseHandler: {fileID: 0}
 --- !u!114 &4406128192067025786
 MonoBehaviour:
@@ -143,3 +140,4 @@ MonoBehaviour:
   levelText: {fileID: 0}
   percenLevelExps: {fileID: 0}
   anim: {fileID: 0}
+  isDead: 0
