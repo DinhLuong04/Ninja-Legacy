@@ -27,7 +27,7 @@ public class WalkingBoss : Boss
         float dir = facingRight ? 1 : -1;
         rb.velocity = new Vector2(dir * moveSpeed, rb.velocity.y);
 
-        // ĐẾO HƯỚNG khi gặp TƯỜNG hoặc VỰC
+        // ĐỔi HƯỚNG khi gặp TƯỜNG hoặc VỰC
         if (IsWallAhead() || !IsGroundAhead())
         {
             Flip();
@@ -116,7 +116,7 @@ public class WalkingBoss : Boss
     // Chờ animation
     yield return new WaitForSeconds(1.0f);
 
-    // CRITICAL: UPDATE TIMER TRƯỚC KHI KẾT THÚC
+    //  UPDATE TIMER TRƯỚC KHI KẾT THÚC
     lastSkillTime = Time.time;
     
     animator?.SetBool("IsAttacking", false);
@@ -139,7 +139,7 @@ public class WalkingBoss : Boss
 
         // HƯỚNG KIẾM (theo facing)
         float direction = facingRight ? 1f : -1f;
-        Vector2 velocity = new Vector2(direction * 20f, 0f); // TỐC ĐỘ CAO
+        Vector2 velocity = new Vector2(direction * 20f, 0f); 
         sword.transform.localScale = new Vector3(direction, 1f, 1f);
         var rbSword = sword.GetComponent<Rigidbody2D>();
         if (rbSword != null)

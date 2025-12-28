@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "H\u1ED3i 20 HP,MP/gi\xE2y trong 5 ph\xFAt"
   icon: {fileID: 21300000, guid: 8af6963f2a52aec4ba3642f7969d95f7, type: 3}
   itemType: 2
-  price: 10
+  price: 30
   usable: 1
   healAmount: 0
   manaAmount: 0

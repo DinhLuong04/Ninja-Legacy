@@ -57,11 +57,6 @@ public class PlayerStealth : MonoBehaviour
         isStealthed = true;
         anim.SetBool("isStealth", true);
 
-        // Làm mờ nhân vật để dễ nhìn
-        Color c = sr.color;
-        c.a = stealthTransparency;
-        sr.color = c;
-
         // Vô hiệu hóa combat (tạm thời)
         combat.enabled = false;
 

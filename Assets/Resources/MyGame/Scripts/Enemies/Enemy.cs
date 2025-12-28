@@ -142,6 +142,7 @@ private void SpawnDrop(GameObject prefab)
         Vector2 forceDir = new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized;
         rb.AddForce(forceDir * UnityEngine.Random.Range(2f, 3f), ForceMode2D.Impulse);
     }
+    Destroy(drop, 10f);
 }
 
 

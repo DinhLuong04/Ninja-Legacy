@@ -16,11 +16,11 @@ MonoBehaviour:
   description: "x2 m\xE1u trong 5 ph\xFAt"
   icon: {fileID: 21300000, guid: 3c95b30a54847674485901b161ab8abd, type: 3}
   itemType: 3
-  price: 10
+  price: 25
   usable: 1
   healAmount: 0
   manaAmount: 0
-  duration: 20
+  duration: 300
   healPerSecond: 0
   manaPerSecond: 0
   damageMultiplier: 1

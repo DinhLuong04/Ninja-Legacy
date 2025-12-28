@@ -12,10 +12,13 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip meleeAttackClip;
     [SerializeField] private AudioClip rangedAttackClip;
-
+    private PlayerController playerController;
     private bool isAttacking = false;
     private bool isInputLocked = false;
-
+    void Start()
+    {
+        playerController = FindObjectOfType<PlayerController>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isInputLocked)
@@ -106,11 +109,12 @@ public class PlayerCombat : MonoBehaviour
         if (weapon == null || weapon.projectilePrefab == null) return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f; 
         Vector2 dir = (mousePos - attackPoint.position).normalized;
-
+        playerController.SetFacingDirection(dir.x);
         GameObject proj = Instantiate(weapon.projectilePrefab, attackPoint.position, Quaternion.identity);
         Shuriken s = proj.GetComponent<Shuriken>();
-        if (s != null) s.Launch(dir, weapon.projectileSpeed, weapon.damage);
+        if (s != null) s.Launch(dir, weapon.projectileSpeed);
     }
 
     public void EndThrow()

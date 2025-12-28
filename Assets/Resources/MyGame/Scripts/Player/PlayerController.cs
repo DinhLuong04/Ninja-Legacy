@@ -36,13 +36,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(ps.isDead) return;
+        if (ps.isDead) return;
         // Input di chuyển
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
         // Flip sprite
-        if (horizontalInput > 0) transform.localScale = new Vector2(1, transform.localScale.y);
-        else if (horizontalInput < 0) transform.localScale = new Vector2(-1, transform.localScale.y);
+        if (Mathf.Abs(horizontalInput) > 0.01f)
+        {
+            SetFacingDirection(horizontalInput);
+        }
 
         // Di chuyển ngang
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
@@ -57,6 +59,19 @@ public class PlayerController : MonoBehaviour
         // Animation chạy/idle
         bool isRunning = Mathf.Abs(horizontalInput) > 0 && isGrounded;
         animator.SetBool(isRunningHash, isRunning);
+    }
+
+    public bool IsFacingRight { get; private set; } = true;
+
+    public void SetFacingDirection(float dirX)
+    {
+        if (dirX == 0) return;
+
+        IsFacingRight = dirX > 0;
+
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (IsFacingRight ? 1 : -1);
+        transform.localScale = scale;
     }
 
     void FixedUpdate()

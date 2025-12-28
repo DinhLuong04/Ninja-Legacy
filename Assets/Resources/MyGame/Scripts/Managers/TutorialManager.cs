@@ -49,6 +49,7 @@ public class TutorialManager : MonoBehaviour
         
         yield return ShowDialogue("Chào con, ta sẽ nhắc lại lý thuyết trước khi luyện tập.", 3f);
         yield return ShowDialogue("HP là sinh lực, MP là năng lượng cho kỹ năng tàng hình và tấn công .", 3f);
+        yield return ShowDialogue("Phi tiêu sẽ bay theo hướng chuột.", 3f);
         yield return ShowDialogue("Khi chiến đấu, tiêu diệt quái sẽ nhận EXP để tăng level và chỉ số.", 3f);
         yield return ShowDialogue("Khi tiêu diệt quái con có thể nhận được vật phẩm rơi ra như bình HP, MP,Yên để con mua đồ", 3f);
         yield return ShowDialogue("Hành trang chứa vật phẩm như bình HP, MP và các vật phẩm hỗ trợ.", 3f);

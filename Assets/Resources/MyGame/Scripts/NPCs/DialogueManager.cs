@@ -76,65 +76,65 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-   void ShowDialogue(DialogueData data)
-{
-    if (data == null)
+    void ShowDialogue(DialogueData data)
     {
-        dialoguePanel.SetActive(false);
-        return;
-    }
+        if (data == null)
+        {
+            dialoguePanel.SetActive(false);
+            return;
+        }
 
-    sentences = data.sentences;
-    index = 0;
+        sentences = data.sentences;
+        index = 0;
 
-    dialoguePanel.SetActive(true);
-    dialogueText.text = sentences[index];
-
-    // Reset tất cả nút
-    nextButton.gameObject.SetActive(false);
-    acceptButton.gameObject.SetActive(false);
-    completeButton.gameObject.SetActive(false);
-
-    // Nếu có nhiều câu → dùng NEXT
-    if (sentences.Length > 1)
-    {
-        nextButton.gameObject.SetActive(true);
-        return;
-    }
-
-    // Nếu chỉ có 1 câu → kiểm tra nút nhiệm vụ ngay lập tức
-    UpdateButtonVisibility();
-
-    // Nếu không phải nhiệm vụ → auto-close
-    if (!acceptButton.gameObject.activeSelf && !completeButton.gameObject.activeSelf)
-    {
-        StartCoroutine(CloseDialogueAfterDelay(2f));
-    }
-}
-
-
-    public void NextSentence()
-{
-    index++;
-
-    if (index < sentences.Length)
-    {
+        dialoguePanel.SetActive(true);
         dialogueText.text = sentences[index];
 
-        if (index == sentences.Length - 1)
-            nextButton.gameObject.SetActive(false);
-    }
-    else
-    {
+        // Reset tất cả nút
         nextButton.gameObject.SetActive(false);
+        acceptButton.gameObject.SetActive(false);
+        completeButton.gameObject.SetActive(false);
+
+        // Nếu có nhiều câu → dùng NEXT
+        if (sentences.Length > 1)
+        {
+            nextButton.gameObject.SetActive(true);
+            return;
+        }
+
+        // Nếu chỉ có 1 câu → kiểm tra nút nhiệm vụ ngay lập tức
         UpdateButtonVisibility();
 
+        // Nếu không phải nhiệm vụ → auto-close
         if (!acceptButton.gameObject.activeSelf && !completeButton.gameObject.activeSelf)
         {
             StartCoroutine(CloseDialogueAfterDelay(2f));
         }
     }
-}
+
+
+    public void NextSentence()
+    {
+        index++;
+
+        if (index < sentences.Length)
+        {
+            dialogueText.text = sentences[index];
+
+            if (index == sentences.Length - 1)
+                nextButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            nextButton.gameObject.SetActive(false);
+            UpdateButtonVisibility();
+
+            if (!acceptButton.gameObject.activeSelf && !completeButton.gameObject.activeSelf)
+            {
+                StartCoroutine(CloseDialogueAfterDelay(2f));
+            }
+        }
+    }
 
 
     void UpdateButtonVisibility()
@@ -186,20 +186,20 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
     public void ShowTutorialDialogue(string message, float duration = 3f)
-{
-    dialoguePanel.SetActive(true);
-    dialogueText.text = message;
-    nextButton.gameObject.SetActive(false);
-    completeButton.gameObject.SetActive(false);
-    acceptButton.gameObject.SetActive(false);
-    StopAllCoroutines();
-    StartCoroutine(AutoHideDialogue(duration));
-}
+    {
+        dialoguePanel.SetActive(true);
+        dialogueText.text = message;
+        nextButton.gameObject.SetActive(false);
+        completeButton.gameObject.SetActive(false);
+        acceptButton.gameObject.SetActive(false);
+        StopAllCoroutines();
+        StartCoroutine(AutoHideDialogue(duration));
+    }
 
-private IEnumerator AutoHideDialogue(float delay)
-{
-    yield return new WaitForSeconds(delay);
-    dialoguePanel.SetActive(false);
-}
+    private IEnumerator AutoHideDialogue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        dialoguePanel.SetActive(false);
+    }
 
 }

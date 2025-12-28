@@ -38,19 +38,19 @@ public class PlayerStats : MonoBehaviour
     public TextMeshProUGUI percenLevelExps;
     public Animator anim;
     public bool isDead = false;
-   void Awake()
-{
-    if (Instance == null)
+    void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    else
-    {
-        Destroy(gameObject);
-    }
-}
 
     void Start()
     {
@@ -65,20 +65,20 @@ public class PlayerStats : MonoBehaviour
 
         UpdateUI();
     }
-      public void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHP -= damage;
         if (currentHP <= 0)
-{
-    currentHP = 0;
-    if (anim != null)
-    {
-        anim.SetBool("isDead", true);
-        anim.SetBool("isHurt", false);
-    }
-    isDead = true;
-    StartCoroutine(HandleDeath());
-}
+        {
+            currentHP = 0;
+            if (anim != null)
+            {
+                anim.SetBool("isDead", true);
+                anim.SetBool("isHurt", false);
+            }
+            isDead = true;
+            StartCoroutine(HandleDeath());
+        }
         else
         {
             if (anim != null)
@@ -95,7 +95,7 @@ public class PlayerStats : MonoBehaviour
         yield return new WaitForSeconds(delay);
         anim.SetBool("isHurt", false);
     }
-    
+
     public void Heal(int amount)
     {
         currentHP += amount;
@@ -216,78 +216,78 @@ public class PlayerStats : MonoBehaviour
 
         UpdateUI();
     }
-private IEnumerator HandleDeath()
-{
-    Debug.Log("[PlayerStats]  Player đã chết, chờ hồi sinh...");
-
-    // Ngừng di chuyển
-    var player = GameObject.FindGameObjectWithTag("Player");
-    if (player != null)
+    private IEnumerator HandleDeath()
     {
-        var rb = player.GetComponent<Rigidbody2D>();
-        if (rb != null) rb.velocity = Vector2.zero;
+        Debug.Log("[PlayerStats]  Player đã chết, chờ hồi sinh...");
+
+        // Ngừng di chuyển
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            var rb = player.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.velocity = Vector2.zero;
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        // Trừ EXP 
+        int expLost = Mathf.RoundToInt(expToNextLevel * 0.2f);
+        exp -= expLost;
+        Debug.Log($"[PlayerStats]  Mất {expLost} EXP khi chết. Hiện tại: {exp}/{expToNextLevel}");
+
+        // Hồi sinh (không đổi level, không tụt chỉ số)
+        currentHP = maxHP;
+        currentMP = maxMP;
+        isDead = false;
+
+        // Reset animation
+        if (anim != null)
+        {
+            anim.SetBool("isDead", false);
+            anim.Play("Idle");
+        }
+
+        // Cập nhật UI
+        UpdateUI();
+
+        //  Spawn lại ở Level1
+        PlayerSpawnManager.SetNextSpawn(
+            sceneName: "Level1",
+            spawnKey: "FromDeath",
+            position: new Vector2(66, -3)
+        );
+
+        // Load lại scene
+        SceneManager.LoadScene("Level1");
     }
-
-    yield return new WaitForSeconds(3f);
-
-    // Trừ EXP 
-    int expLost = Mathf.RoundToInt(expToNextLevel * 0.2f);
-    exp -= expLost; 
-    Debug.Log($"[PlayerStats]  Mất {expLost} EXP khi chết. Hiện tại: {exp}/{expToNextLevel}");
-
-    // Hồi sinh (không đổi level, không tụt chỉ số)
-    currentHP = maxHP;
-    currentMP = maxMP;
-    isDead = false;
-
-    // Reset animation
-    if (anim != null)
+    public void ResetForRealGame()
     {
-        anim.SetBool("isDead", false);
-        anim.Play("Idle");
+        // Stats cơ bản
+        level = 1;
+        exp = 0;
+        expToNextLevel = 100;
+
+        baseMaxHP = 200;
+        baseMaxMP = 80;
+        maxHP = baseMaxHP;
+        maxMP = baseMaxMP;
+        currentHP = maxHP;
+        currentMP = maxMP;
+
+        baseDamage = 15;
+        currentDamage = baseDamage;
+
+        gold = 500;
+        isDead = false;
+
+        // Reset Buff
+        BuffPanelManager.Instance.ClearAllBuffs();
+
+        UpdateUI();
     }
-
-    // Cập nhật UI
-    UpdateUI();
-
-    //  Spawn lại ở Level1
-    PlayerSpawnManager.SetNextSpawn(
-        sceneName: "Level1",
-        spawnKey: "FromDeath",
-        position: new Vector2(66, -3) 
-    );
-
-    // Load lại scene
-    SceneManager.LoadScene("Level1");
-}
-public void ResetForRealGame()
-{
-    // Stats cơ bản
-    level = 1;
-    exp = 0;
-    expToNextLevel = 100;
-
-    baseMaxHP = 200;
-    baseMaxMP = 80;
-    maxHP = baseMaxHP;
-    maxMP = baseMaxMP;
-    currentHP = maxHP;
-    currentMP = maxMP;
-
-    baseDamage = 15;
-    currentDamage = baseDamage;
-
-    gold = 500;
-    isDead = false;
-
-    // Reset Buff
-    BuffPanelManager.Instance.ClearAllBuffs();
-
-    UpdateUI();
-}
-public int GetDamage()
-{
-    return currentDamage;
-}
+    public int GetDamage()
+    {
+        return currentDamage;
+    }
 
 }
